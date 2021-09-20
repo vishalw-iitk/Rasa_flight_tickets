@@ -1,0 +1,50 @@
+version: "2.0"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story : welcome path
+  steps:
+  - intent: welcome
+  - action: utter_welcome
+  - intent: more_welcome
+  - action: utter_more_wc
+  - action: utter_greet
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
+
+- story: Info has begun
+  steps:
+  - intent: info
+  - action: utter_askname
+  - intent: Name
+  - action: action_sayname
+  - slot_was_set:
+    - name: "vishu"
+  - intent: repeatname
+  - action: action_display
+  - action: utter_goodbye
