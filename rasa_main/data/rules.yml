@@ -2,12 +2,63 @@ version: "2.0"
 
 rules:
 
-- rule: Say goodbye anytime the user says goodbye
-  steps:
-  - intent: goodbye
-  - action: utter_goodbye
+# - rule: To begin form
+#   steps:
+#   - intent: greet
+#   - action: begin_form
+#   - slot_was_set:
+#     - begin_status: true
+#   - active_loop: begin_form
 
-- rule: Say 'I am a bot' anytime the user challenges
+- rule: begin submit form
+  condition:
+  - active_loop: begin_form
   steps:
-  - intent: bot_challenge
-  - action: utter_iamabot
+  - action: begin_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+
+# - rule: Ticket form
+#   steps:
+#   - intent: yes_for_tickets
+#   - action: flights_form
+#   - slot_was_set:
+#     - full_name: "vishal waghmare"
+#     - contact_number: "9898989898"
+#     - from_location: "mumbai"
+#     - to_location: "new york"
+#     - date: "12/12/13"
+#     - time: "12:32"
+#   - active_loop: flights_form
+
+- rule: ticket submit form
+  condition:
+  - active_loop: flights_form
+  steps:
+  - action: flights_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_submit
+  - action: utter_showpreview
+  - action: utter_ask_confirm
+
+- rule: confirm submit form
+  condition:
+  - active_loop: confirm_form
+  steps:
+  - action: confirm_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+
+# - rule: Say goodbye anytime the user says goodbye
+#   steps:
+#   - intent: goodbye
+#   - action: utter_goodbye
+
+# - rule: Say 'I am a bot' anytime the user challenges
+#   steps:
+#   - intent: bot_challenge
+#   - action: utter_iamabot

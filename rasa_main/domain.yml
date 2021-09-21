@@ -1,60 +1,140 @@
-version: "2.0"
-
-intents:
-  - greet
-  - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
-  - welcome
-  - more_welcome
-  - info
-  - Name
-  - repeatname
-
-entities:
-  - name
-
-slots:
-  name:
-    type: text
-
-
-responses:
-  utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
-
-  utter_goodbye:
-  - text: "Bye"
-
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
-
-  utter_welcome:
-  - text: "Welcome dear"
-
-  utter_more_wc:
-  - text: "More and more welcome dear. Always.."
-
-  utter_askname:
-  - text: "what is your name?"
-
-actions:
-  - action_sayname
-  - action_display
-
+version: '2.0'
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
+intents:
+- greet
+- begin_tickets_booking
+- confirm_tickets_booking
+- tell_name
+- tell_contact
+- tell_from_location
+- tell_to_location
+- tell_date
+- tell_time
+- affirm
+- deny
+- questions
+entities:
+- full_name
+- contact_number
+- from_location
+- to_location
+- date
+- time
+slots:
+  full_name:
+    type: text
+    influence_conversation: true
+  contact_number:
+    type: text
+    influence_conversation: true
+  from_location:
+    type: text
+    influence_conversation: true
+  to_location:
+    type: text
+    influence_conversation: true
+  date:
+    type: text
+    influence_conversation: true
+  time:
+    type: text
+    influence_conversation: true
+  begin_status:
+    type: bool
+    influence_conversation: true
+  confirm_status:
+    type: bool
+    influence_conversation: true
+responses:
+  utter_ask_to_begin:
+  - text: |
+      Great to have you with us
+      Let me know if we can proceed to book the flight tickets
+  utter_ask_full_name:
+  - text: Please provide your full name
+  utter_ask_contact_number:
+  - text: Provide your contact number
+  utter_ask_from_location:
+  - text: From where do you want take the flight ?
+  utter_ask_to_location:
+  - text: Where do you want to land at ?
+  utter_ask_date:
+  - text: When do you want to travel ?
+  utter_ask_time:
+  - text: What is your flight timing ?
+  utter_submit:
+  - text: Thanks for providing the required info
+  utter_showpreview:
+  - text: |
+      We have generated the ticket preview for you
+      Service provider: Indigo
+      Traveller name: {full_name}
+      Contact number: {contact_number}
+      From: {from_location}
+      To: {to_location}
+      Date of onboarding: {date}
+      Price: $ 100 Boarding time: {time}
+      Gate number: 12
+      Flight code: QA909
+  utter_ask_confirm:
+  - text: Do you want to confirm this booking ?
+  utter_confirmation:
+  - text: "We have booked your tickets successfully"
+  utter_show_booked_ticket:
+  - text: |
+      Your flight is booked as follows:
+      Service provider: Indigo Traveller
+      name: {full_name}
+      Contact number: {contact_number}
+      From: {from_location}
+      To: {to_location}
+      Date of onboarding: {date}
+      Price: $ 100 Boarding
+      time: {time}
+      Gate number: 12
+      Flight code: QA909
+  utter_rejection:
+  - text: |
+      Thanks for your time Please visit us again for booking the flight tickets
+actions:
+- action_display
+- action_sayname
+- utter_ask_confirm
+- utter_ask_to_begin
+- utter_confirmation
+- utter_show_booked_ticket
+- utter_showpreview
+- utter_submit
+forms:
+  flights_form:
+    required_slots:
+      full_name:
+      - type: from_text
+      contact_number:
+      - type: from_text
+      from_location:
+      - type: from_text
+      to_location:
+      - type: from_text
+      date:
+      - type: from_text
+      time:
+      - type: from_text
+  begin_form:
+    required_slots:
+      begin_status:
+      - type: from_trigger_intent
+        value: true
+        intent: [affirm, begin_tickets_booking]
+        not_intent: deny
+        initial_value: false
+  confirm_form:
+    required_slots:
+      confirm_status:
+      - type: from_trigger_intent
+        value: true
+        intent: [affirm, confirm_tickets_booking]
+        not_intent: deny
+        initial_value: false

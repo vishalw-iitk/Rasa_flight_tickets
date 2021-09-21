@@ -1,130 +1,117 @@
 version: "2.0"
-
 nlu:
 - intent: greet
   examples: |
     - hey
-    - hello
     - hi
+    - hello
     - hello there
     - good morning
     - good evening
-    - moin
-    - hey there
     - let's go
     - hey dude
-    - goodmorning
-    - goodevening
     - good afternoon
-
-- intent: goodbye
+    - Hey there
+    - hey there
+- intent: questions
   examples: |
-    - good afternoon
-    - cu
-    - good by
-    - cee you later
-    - good night
-    - bye
-    - goodbye
-    - have a nice day
-    - see you around
-    - bye bye
-    - see you later
-
+    - who are you?
+    - how will you help me?
+    - what is this?
+    - how?
+    - i want to know more
+    - know more
+    - information
+    - info
+    - elaborate
 - intent: affirm
   examples: |
+    - interested
     - yes
     - y
-    - indeed
-    - of course
-    - that sounds good
-    - correct
-
+    - sure
+    - let's move ahead
+    - okay
+    - ok
+    - yup
+    - yups
+    - yeah
+    - ya
+    - absolutely
+    - definitely
+    - required
+    - affirm
 - intent: deny
   examples: |
+    - not interested
     - no
+    - not for this
+    - deny
     - n
     - never
     - I don't think so
     - don't like that
     - no way
     - not really
-
-- intent: mood_great
+    - don't
+    - do not
+    - not at all
+    - nope
+    - nopes
+    - na
+    - cannot
+    - can't
+- intent: begin_tickets_booking
   examples: |
-    - perfect
-    - great
-    - amazing
-    - feeling like a king
-    - wonderful
-    - I am feeling very good
-    - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
-
-- intent: mood_unhappy
+    - lets's start
+    - let's book the tickets
+    - book the tickets please
+    - book it
+    - tickets booking
+- intent: confirm_tickets_booking
   examples: |
-    - my day was horrible
-    - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
-
-- intent: bot_challenge
+    - confirm it
+    - fix it
+    - confirm the tickets please
+- intent: tell_name
   examples: |
-    - are you a bot?
-    - are you a human?
-    - am I talking to a bot?
-    - am I talking to a human?
-
-- intent: welcome
+    - [Vishal Waghmare](full_name)
+    - My name is [Vishal Waghmare](full_name)
+    - My name is [Vishal](full_name)
+    - My name is [robinhood](full_name)
+    - Myself [praveen](full_name)
+    - i am [rosy](full_name)
+    - my name is vishal
+- intent: tell_contact
   examples: |
-    - Your welcome
-    - welcome
-    - my pleasure
-    - wc
-    - nice. welcome
-
-- intent: more_welcome
+    - [9898989898](contact_number)
+    - my contact number is [9998686860](contact_number)
+    - my mobile number is [7678765432](contact_number)
+    - [767677677](contact_number)
+- intent: tell_from_location
   examples: |
-    - want more welcome
-    - only this much
-    - say more
-    - want to hear more
-    - again again
-    - common
-
-- intent: info
+    - [mumbai](from_location)
+    - i am in [mumbai](from_location)
+    - from [mumbai](from_location)
+    - boarding from [mumbai](from_location)
+    - onboarding from [mumbai](from_location)
+    - from [chandrapur](from_location)
+- intent: tell_to_location
   examples: |
-    - info
-    - let's start
-    - work only please
-    - begin the work
-
-- intent: Name
+    - [new york](to_location)
+    - to [new york](to_location)
+    - i want to go to [new york](to_location)
+    - travel to [new york](to_location)
+- intent: tell_date
   examples: |
-    - My name in [Vishal](name)
-    - I am [Rakesh](name)
-    - [Irfan](name)
-    - Myself [Robin](name)
-
-- intent: repeatname
+    - [12/11/12](date)
+    - on [12/11/12](date)
+    - i want to go on [12/11/12](date)
+    - date [12/11/12](date)
+    - [12/23/21](date)
+- intent: tell_time
   examples: |
-    - repeat
-    - repeat my name
-    - who am I?
-    - come again
+    - [12:23 am](time)
+    - time [12:23](time)
+    - time should be [12:23 pm](time)
+    - [12:67](time)

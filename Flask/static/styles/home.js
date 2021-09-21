@@ -1,4 +1,15 @@
 // console.log("hello")
+const welocme_msg = (function() {
+    var executed = false;
+    return function(msg_classname, img_src, msg_text) {
+        if (!executed) {
+            executed = true;
+            // do something
+            insert_into_web(msg_classname, img_src, msg_text)
+        }
+    };
+})();
+
 document.querySelector('.chathead').addEventListener('click', ()=>{
     const chatcont = document.querySelectorAll('.chat_content')
     for (var i = 0; i < chatcont.length; i++) {
@@ -9,6 +20,18 @@ document.querySelector('.chathead').addEventListener('click', ()=>{
     document.querySelector('.sidebody').classList.toggle('restchat')
     document.querySelector('.chathead').classList.toggle('chathead_mob')
     document.querySelector('.chatter').classList.toggle('chatter_mob')
+
+        // bot initial msg
+        bot_initial_msg = "Hi! I am from Mirafra.\
+        \nI can help you in booking the flight tickets\
+        \nWelcome to our flight booking services."
+        
+        
+        setTimeout(
+            function(){
+                welocme_msg("bot_msg_in_body", "https://support.upwork.com/hc/article_attachments/360040474034/chatbot-data.png", bot_initial_msg);
+            }, 1000);
+
 })
 
 
@@ -28,6 +51,7 @@ function message_content_block(msg_text){
     const puser = document.createElement("p")
     if(msg_text == ".msg_inp"){
         const actual_user_msg = document.querySelector(msg_text).value
+        document.querySelector(msg_text).value = null
         puser.innerText = actual_user_msg
     }
     else{
@@ -77,13 +101,16 @@ function insert_into_web(msg_classname, img_src, msg_text){
 
     add_blocks_to_chat(msg_text, user_msg_div, chatb, imguser, puser)
 
-    add_break_line(chatb)
+    chatb.scrollTop = chatb.scrollHeight;
+
+    // add_break_line(chatb)
 
     console.log(actual_user_msg)
     return actual_user_msg
 }
 
 document.querySelector('.msg_button').addEventListener('click', ()=>{
+    // user query
     const actual_user_msg = insert_into_web("user_msg_in_body", "https://nulm.gov.in/images/user.png", ".msg_inp")
     
     const user_query = {
@@ -106,8 +133,10 @@ document.querySelector('.msg_button').addEventListener('click', ()=>{
     fetchRes
     .then(response => response.json())
     .then(data => {
-        console.log(data[0]['text'])
-        insert_into_web("bot_msg_in_body", "https://support.upwork.com/hc/article_attachments/360040474034/chatbot-data.png", data[0]['text'])
+        for (var i = 0; i < data.length; i++) {
+            console.log(data[i]['text'])
+            insert_into_web("bot_msg_in_body", "https://support.upwork.com/hc/article_attachments/360040474034/chatbot-data.png", data[i]['text'])
+        }
     })
 
 

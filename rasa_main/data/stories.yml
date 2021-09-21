@@ -2,49 +2,132 @@ version: "2.0"
 
 stories:
 
-- story: happy path
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
 
-- story : welcome path
+- story: greet <> booked tickets
   steps:
-  - intent: welcome
-  - action: utter_welcome
-  - intent: more_welcome
-  - action: utter_more_wc
-  - action: utter_greet
+    - intent: greet
+    - action: utter_ask_to_begin
+    - action: begin_form
+    - active_loop: begin_form
+    - slot_was_set:
+      - begin_status: true
+    - action: flights_form
+    - active_loop: flights_form
+    - slot_was_set:
+      - full_name: "vishal waghmare"
+      - contact_number: "9898989898"
+      - from_location: "mumbai"
+      - to_location: "new york"
+      - date: "12/12/13"
+      - time: "12:32"
+    - action: confirm_form
+    - active_loop: confirm_form
+    - slot_was_set:
+        - confirm_status: true
+    - action: utter_confirmation
+    - action: utter_show_booked_ticket
 
-- story: sad path 1
+- story: book tickets - booked tickets
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
+    - intent: begin_tickets_booking
+    - action: begin_form
+    - active_loop: begin_form
+    - slot_was_set:
+      - begin_status: true
+    - action: flights_form
+    - active_loop: flights_form
+    - slot_was_set:
+      - full_name: "vishal waghmare"
+      - contact_number: "9898989898"
+      - from_location: "mumbai"
+      - to_location: "new york"
+      - date: "12/12/13"
+      - time: "12:32"
+    - action: confirm_form
+    - active_loop: confirm_form
+    - slot_was_set:
+        - confirm_status: true
+    - action: utter_confirmation
+    - action: utter_show_booked_ticket
 
-- story: sad path 2
+- story: greet - not to confirm tickets
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
+    - intent: greet
+    - action: utter_ask_to_begin
+    - action: begin_form
+    - active_loop: begin_form
+    - slot_was_set:
+      - begin_status: true
+    - action: flights_form
+    - active_loop: flights_form
+    - slot_was_set:
+      - full_name: "vishal waghmare"
+      - contact_number: "9898989898"
+      - from_location: "mumbai"
+      - to_location: "new york"
+      - date: "12/12/13"
+      - time: "12:32"
+    - action: confirm_form
+    - active_loop: confirm_form
+    - slot_was_set:
+        - confirm_status: false
+    - action: utter_rejection
 
-- story: Info has begun
+- story: greet - not to provide info
   steps:
-  - intent: info
-  - action: utter_askname
-  - intent: Name
-  - action: action_sayname
-  - slot_was_set:
-    - name: "vishu"
-  - intent: repeatname
-  - action: action_display
-  - action: utter_goodbye
+    - intent: greet
+    - action: utter_ask_to_begin
+    - action: begin_form
+    - active_loop: begin_form
+    - slot_was_set:
+      - begin_status: false
+    - action:  utter_rejection
+
+
+
+# - story: acceptance to provide info for tickets
+#   steps:
+#     - intent: affirm
+#     - action: 
+#     - action: utter_ask_to_begin
+    
+
+
+#   - intent: greet
+#   - action: utter_ask_to_begin
+#   - intent: yes_for_tickets
+#   - action: flights_form
+#   - slot_was_set:
+#     - full_name: "vishal waghmare"
+#     - contact_number: "9898989898"
+#     - from_location: "mumbai"
+#     - to_location: "new york"
+#     - date: "12/12/13"
+#     - time: "12:32"
+#   - active_loop: flights_form
+#   - action: utter_submit
+#   - action: utter_showpreview
+#   - action: utter_ask_confirm
+#   - intent: yes_for_tickets
+#   - action: utter_confirmation
+#   - action: utter_show_booked_ticket
+
+# - story: ticket_rejected_after_preview
+#   steps:
+#   - intent: greet
+#   - action: utter_ask_to_begin
+#   - intent: yes_for_tickets
+#   - action: flights_form
+#   - slot_was_set:
+#     - full_name: "vishal waghmare"
+#     - contact_number: "9898989898"
+#     - from_location: "mumbai"
+#     - to_location: "new york"
+#     - date: "12/12/13"
+#     - time: "12:32"
+#   - active_loop: flights_form
+#   - action: utter_submit
+#   - action: utter_showpreview
+#   - action: utter_ask_confirm
+#   - intent: no_for_tickets
+#   - action: utter_rejection

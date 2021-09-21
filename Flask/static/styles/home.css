@@ -1,6 +1,8 @@
+*{
+    box-sizing: border-box;
+}
+
 html {
-    /* height: 100%; */
-    /* background-color: red; */
     margin: 0px;
     padding: 0px;
 }
@@ -8,7 +10,9 @@ html {
 body{
     width: 98vw;
     height: 98vh;
-    background-color: tomato;
+    /* background-color: tomato; */
+    background-image: url("https://uploads-ssl.webflow.com/5b5544f1ef1d588fe94a813d/5b59858b5e43896f2df253ac_airplane-animation.gif");
+    background-size: contain;
 }
 
 .divbody{
@@ -20,11 +24,18 @@ body{
     grid-gap: 1px;
 }
 
-.menu{
+.header{
     height: 100%;
     width: 100%;
     grid-column: 1/-1;
-    background-color: yellowgreen;
+    /* background-color: gainsboro; */
+}
+
+.header > p{
+    background-color: #8d9ff1;
+    text-align: center;
+    font-size: min(40px, 7.5vw);
+    margin: 3px auto;
 }
 
 .mainbody{
@@ -32,7 +43,7 @@ body{
     width: 100%;
     grid-column: 1/1;
     grid-row: 2/-1;
-    background-color: green;
+    /* background-color: green; */
 }
 
 .sidebody{
@@ -40,7 +51,7 @@ body{
     width: 100%;
     grid-column: 2/-1;
     grid-row: 2/-2;
-    background-color:rgb(216, 33, 33);
+    /* background-color:rgb(216, 33, 33); */
 }
 
 .chatter{
@@ -48,7 +59,7 @@ body{
     width: 100%;
     grid-column: 2/-1;
     grid-row: 4/-1;
-    background-color: burlywood;
+    background-color: rgb(224, 223, 221);
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -76,14 +87,15 @@ body{
 }
 
 .chathead{
-    background-color: rgb(44, 44, 238);
+    background-color: #566cd1;
     height: 10%;
-    margin-top: 2px;
+    cursor: pointer;
+    /* margin-top: 2px; */
 }
 
 
 .chatbody{
-    background-color: rgb(219, 218, 218);
+    background-color: rgb(233, 230, 230);
     height: 65%;
     padding: 5px;
     overflow-y: auto;
@@ -91,13 +103,12 @@ body{
 
 .msg_in_body{
     border-radius: 20px;
-    /* background-color: beige; */
-    padding: 1px;
-    /* max-width: 70%; */
+    padding: 0px;
     width: 90%;
-    margin: 5px;
+    margin: 0px;
     display: flex;
     align-items: center;
+    /* background-color: red; */
 }
 
 .msg_in_body > img{
@@ -110,11 +121,10 @@ body{
 
 .msg_in_body > p{
     word-wrap: break-word;
-    background-color: beige;
+    background-color: rgb(202, 219, 241);
     max-width: 70%;
     padding: 5px;
     border-radius: 15px;
-    /* width: 85%; */
 }
 
 .user_msg_in_body{
@@ -142,13 +152,16 @@ body{
 }
 
 .send_utils{
-    background-color: thistle;
+    background-color: rgb(211, 212, 212);
     height: 10%;
 }
 
 .send_utils > button{
     margin: 6px;
     font-size: medium;
+    background-color: rgb(101, 172, 238);
+    border-radius: 20px;
+    cursor: pointer;
 
 }
 
