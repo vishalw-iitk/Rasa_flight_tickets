@@ -6,22 +6,23 @@ rules:
 #   steps:
 #   - intent: greet
 #   - action: begin_form
-#   - slot_was_set:
-#     - begin_status: true
+#   # - slot_was_set:
+#     # - begin_status: true
 #   - active_loop: begin_form
 
-- rule: begin submit form
-  condition:
-  - active_loop: begin_form
-  steps:
-  - action: begin_form
-  - active_loop: null
-  - slot_was_set:
-    - requested_slot: null
+# - rule: begin submit form
+#   condition:
+#   - active_loop: begin_form
+#   steps:
+#   - action: begin_form
+#   - active_loop: null
+#   - slot_was_set:
+#     - requested_slot: null
+#   - action: utter_rejection
 
 # - rule: Ticket form
 #   steps:
-#   - intent: yes_for_tickets
+#   - intent: affirm
 #   - action: flights_form
 #   - slot_was_set:
 #     - full_name: "vishal waghmare"
@@ -30,19 +31,29 @@ rules:
 #     - to_location: "new york"
 #     - date: "12/12/13"
 #     - time: "12:32"
+#     - begin_status: false
+#     - confirm_status: false
 #   - active_loop: flights_form
 
-- rule: ticket submit form
-  condition:
-  - active_loop: flights_form
-  steps:
-  - action: flights_form
-  - active_loop: null
-  - slot_was_set:
-    - requested_slot: null
-  - action: utter_submit
-  - action: utter_showpreview
-  - action: utter_ask_confirm
+# - rule: ticket submit form
+#   condition:
+#   - active_loop: flights_form
+#   steps:
+#   - action: flights_form
+#   - active_loop: null
+#   - slot_was_set:
+#     - full_name: "vishal waghmare"
+#     - contact_number: "9898989898"
+#     - from_location: "mumbai"
+#     - to_location: "new york"
+#     - date: "12/12/13"
+#     - time: "12:32"
+#     - begin_status: false
+#     - confirm_status: false
+#     - requested_slot: null
+#   - action: utter_submit
+#   - action: utter_showpreview
+  # - action: utter_ask_confirm
 
 - rule: confirm submit form
   condition:
@@ -62,3 +73,42 @@ rules:
 #   steps:
 #   - intent: bot_challenge
 #   - action: utter_iamabot
+
+
+
+##### working rules
+
+# - rule: Ticket form
+#   steps:
+#   - intent: affirm
+#   - action: flights_form
+#   - slot_was_set:
+#     - full_name: "vishal waghmare"
+#     - contact_number: "9898989898"
+#     - from_location: "mumbai"
+#     - to_location: "new york"
+#     - date: "12/12/13"
+#     - time: "12:32"
+#     - begin_status: false
+#     - confirm_status: false
+#   - active_loop: flights_form
+
+# - rule: ticket submit form
+#   condition:
+#   - active_loop: flights_form
+#   steps:
+#   - action: flights_form
+#   - active_loop: null
+#   - slot_was_set:
+#     - full_name: "vishal waghmare"
+#     - contact_number: "9898989898"
+#     - from_location: "mumbai"
+#     - to_location: "new york"
+#     - date: "12/12/13"
+#     - time: "12:32"
+#     - begin_status: false
+#     - confirm_status: false
+#     - requested_slot: null
+#   - action: utter_submit
+#   - action: utter_showpreview
+#   # - action: utter_ask_confirm
