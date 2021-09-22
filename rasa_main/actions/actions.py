@@ -11,6 +11,8 @@ from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet
+from rasa_sdk.events import AllSlotsReset
+# from rasa_sdk.events import Restarted
 from rasa_sdk.executor import CollectingDispatcher
 
 
@@ -63,9 +65,7 @@ class Actiondisplay(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        print("333")
         name = tracker.get_slot("name")
-        print(name)
 
         if not name:
             msg = f"oops. Please enter properly"
@@ -78,3 +78,24 @@ class Actiondisplay(Action):
         dispatcher.utter_message(text = msg)
 
         return []
+
+
+class Actionsetbeginstatustrue(Action):
+    def name(self) -> Text:
+        return "action_set_begin_status_true"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        return[SlotSet("begin_status", True)]
+
+class Actionqueryfresh(Action):
+
+    def name(self) -> Text:
+        return "action_query_fresh"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        return [AllSlotsReset()]
+    

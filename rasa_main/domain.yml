@@ -4,17 +4,19 @@ session_config:
   carry_over_slots_to_new_session: true
 intents:
 - greet
+- affirm
+- deny
 - begin_tickets_booking
-- confirm_tickets_booking
 - tell_name
 - tell_contact
 - tell_from_location
 - tell_to_location
 - tell_date
 - tell_time
-- affirm
-- deny
+- confirm_tickets_booking
+- new_ticket
 - questions
+- thanks
 entities:
 - contact_number
 - date
@@ -50,7 +52,7 @@ slots:
 responses:
   utter_ask_begin_status:
   - text: |
-      Great to have you with us
+      Glad to have you with us
       Let me know if we can proceed to book the flight tickets
   utter_ask_full_name:
   - text: Please provide your full name
@@ -96,12 +98,49 @@ responses:
       Boarding time: {time}
       Gate number: 12
       Flight code: QA909
-  utter_rejection:
+  utter_visit_again:
   - text: |
       Thanks for your time Please visit us again for booking the flight tickets
+  utter_thanks:
+  - text: |
+      Your welcome!
+      I am from Mirafra
+      We are here to help you in booking the flight tickets.
+  utter_affirm:
+  - text: |
+      I am here for booking your flight ticket
+  utter_answer:
+  - text: |
+      I am from Mirafra
+      My actions come from my owner
+      I am trained for all these action
+      I can book your flight tickets
+  utter_yet_to_generate:
+  - text: |
+      Seems like your ticket is not booked or not yet finalised
+  utter_appears_name:
+  - text: |
+      This appears to be a name to me..
+  utter_appears_contact:
+  - text: |
+      This appears to be a contact number to me..
+  utter_appears_from_location:
+  - text: |
+      This appears to be your onboarding location to me..
+  utter_appears_to_location:
+  - text: |
+      This appears to be your landing location to me..
+  utter_appears_date:
+  - text: |
+      This appears to be a date of your journey to me..
+  utter_appears_time:
+  - text: |
+      This appears to be a your preferred on boarding time to me..
 actions:
 - action_display
+- action_query_fresh
 - action_sayname
+- action_set_begin_status_true
 - utter_confirmation
 - utter_show_booked_ticket
 - utter_showpreview
@@ -111,13 +150,13 @@ forms:
     required_slots:
       begin_status:
       - type: from_intent
-        value: True
+        value: true
         intent:
         - affirm
         - begin_tickets_booking
         not_intent: deny
       - type: from_intent
-        value: False
+        value: false
         intent: deny
         not_intent:
         - affirm
@@ -125,52 +164,56 @@ forms:
   flights_form:
     required_slots:
       full_name:
+      - type: from_entity
+        entity: full_name
+        intent:
+        - tell_name
       - type: from_text
+        intent:
+        - tell_name
       contact_number:
-      - type: from_text
+      - type: from_entity
+        entity: contact_number
+        intent:
+        - tell_contact
       from_location:
+      - type: from_entity
+        entity: from_location
+        intent:
+        - tell_from_location
       - type: from_text
+        intent:
+        - tell_from_location
       to_location:
+      - type: from_entity
+        entity: to_location
+        intent:
+        - tell_to_location
       - type: from_text
+        intent:
+        - tell_to_location
       date:
-      - type: from_text
+      - type: from_entity
+        entity: date
+        intent:
+        - tell_date
       time:
-      - type: from_text
+      - type: from_entity
+        entity: time
+        intent:
+        - tell_time
   confirm_form:
     required_slots:
       confirm_status:
       - type: from_intent
-        value: True
+        value: true
         intent:
         - affirm
         - confirm_tickets_booking
         not_intent: deny
       - type: from_intent
-        value: False
+        value: false
         intent: deny
         not_intent:
         - affirm
         - confirm_tickets_booking
-
-
-###### experiment : this form works
-# forms:
-#   begin_form:
-#     required_slots:
-#       begin_status:
-#       - type: from_intent
-#         value: True
-#         intent: affirm
-#         not_intent: deny
-#       - type: from_intent
-#         value: True
-#         intent: begin_tickets_booking
-#         not_intent: deny
-#       - type: from_intent
-#         value: False
-#         intent: deny
-#         not_intent: affirm
-#       - type: from_intent
-#         value: False
-#         intent: deny
-#         not_intent: begin_tickets_booking

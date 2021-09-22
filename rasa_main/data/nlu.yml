@@ -99,10 +99,10 @@ nlu:
     - from [chandrapur](from_location)
 - intent: tell_to_location
   examples: |
-    - [new york](to_location)
-    - to [new york](to_location)
-    - i want to go to [new york](to_location)
-    - travel to [new york](to_location)
+    - [Sydney](to_location)
+    - to [Sydney](to_location)
+    - i want to go to [Sydney](to_location)
+    - travel to [Sydney](to_location)
 - intent: tell_date
   examples: |
     - [12/11/12](date)
@@ -116,3 +116,26 @@ nlu:
     - time [12:23](time)
     - time should be [12:23 pm](time)
     - [12:67](time)
+- intent: new_ticket
+  examples: |
+    - new ticket
+    - another ticket
+    - another ticket please
+    - start again
+    - let's begin again
+    - book another ticket
+    - book one more tickets
+    - book few more tickets
+- intent: thanks
+  examples: |
+    - thank you
+    - thanks
+    - thanks a lot
+    - very very thanks
+    - thank you so much
+    - ty
+    - thnks
+    - so nice
+    - nice of you
+    - amazing
+    - wow

@@ -2,12 +2,94 @@ version: "2.0"
 
 stories:
 
+- story: another ticket
+  steps:
+    - intent: new_ticket
+    - action: action_query_fresh
+    - action: action_set_begin_status_true
+    - action: flights_form
+    - active_loop: flights_form
+
+- story: thank you
+  steps:
+    - intent: thanks
+    - action: utter_thanks
+
+- story: visit again 
+  steps:
+    - intent: deny
+    - action: utter_visit_again
+
+- story: affirmative randoms
+  steps:
+    - intent: affirm
+    - action: utter_affirm
+
+- story: questions answers
+  steps:
+    - intent: questions
+    - action: utter_answer
+
+- story: randomly said confirm tickets booking
+  steps:
+    - intent: confirm_tickets_booking
+    - action: utter_yet_to_generate
+
+
+- story: story tell_name
+  steps:
+    - intent: tell_name
+    - action: utter_appears_name
+    - action: action_query_fresh
+    - action: begin_form
+    - active_loop: begin_form
+
+- story: story tell_contact
+  steps:
+    - intent: tell_contact
+    - action: utter_appears_contact
+    - action: action_query_fresh
+    - action: begin_form
+    - active_loop: begin_form
+
+- story: story tell_from_location
+  steps:
+    - intent: tell_from_location
+    - action: utter_appears_from_location
+    - action: action_query_fresh
+    - action: begin_form
+    - active_loop: begin_form
+
+- story: story tell_to_location
+  steps:
+    - intent: tell_to_location
+    - action: utter_appears_to_location
+    - action: action_query_fresh
+    - action: begin_form
+    - active_loop: begin_form
+
+- story: story tell_date
+  steps:
+    - intent: tell_date
+    - action: utter_appears_date
+    - action: action_query_fresh
+    - action: begin_form
+    - active_loop: begin_form
+
+- story: story tell_time
+  steps:
+    - intent: tell_time
+    - action: utter_appears_time
+    - action: action_query_fresh
+    - action: begin_form
+    - active_loop: begin_form
+
 
 ##### experiment : working form based story
 # - story: greet  booked tickets
 #   steps:
 #     - intent: greet
-#     - action: utter_rejection
+#     - action: utter_visit_again
 #     - intent: affirm
 #     - action: flights_form
 #     - active_loop: flights_form
@@ -50,10 +132,43 @@ stories:
 #   - slot_was_set:
 #     - requested_slot: begin_status
 #   - intent: affirm
-#   - action: utter_rejection
+#   - action: utter_visit_again
 #   - intent: greet
 #   - action: begin_form
 #   - slot_was_set:
 #     - requested_slot: begin_status
 #   - intent: begin_tickets_booking
-#   - action: utter_rejection
+#   - action: utter_visit_again
+
+# - story: interactive_story_1
+#   steps:
+#   - intent: greet
+#   - action: begin_form
+#   - active_loop: begin_form
+#   - slot_was_set:
+#     - requested_slot: begin_status
+#   - slot_was_set:
+#     - begin_status: true
+#   - slot_was_set:
+#     - requested_slot: null
+#   - active_loop: null
+#   - action: flights_form
+#   - active_loop: flights_form
+#   - slot_was_set:
+#     - requested_slot: full_name
+#   - slot_was_set:
+#     - full_name: Vishal Waghmare
+#   - slot_was_set:
+#     - full_name: Vishal Waghmare
+#   - slot_was_set:
+#     - requested_slot: contact_number
+#   - intent: deny
+#   - action: flights_form
+#   - slot_was_set:
+#     - requested_slot: contact_number
+#   - slot_was_set:
+#     - contact_number: '123456'
+#   - slot_was_set:
+#     - contact_number: '123456'
+#   - slot_was_set:
+#     - requested_slot: from_location

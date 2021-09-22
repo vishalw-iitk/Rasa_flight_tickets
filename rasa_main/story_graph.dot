@@ -3,44 +3,25 @@ digraph  {
 "-1" [class=end, fillcolor=red, fontsize=12, label=END, style=filled];
 1 [class=active, fontsize=12, label=action_session_start];
 2 [class=active, fontsize=12, label=begin_form];
-3 [class="active dashed", fontsize=12, label=action_default_fallback];
-5 [class="intent active", fillcolor=lightblue, label=hi, shape=rect, style=filled];
-6 [class="intent active", fillcolor=lightblue, label="fix it", shape=rect, style=filled];
-7 [class="intent active", fillcolor=lightblue, label="fix it", shape=rect, style=filled];
+4 [class=active, fontsize=12, label=flights_form];
+8 [class="intent dashed active", label="  ?  ", shape=rect];
+9 [class="intent active", fillcolor=lightblue, label=hi, shape=rect, style=filled];
+10 [class="intent active", fillcolor=lightblue, label=yes, shape=rect, style=filled];
+11 [class="intent active", fillcolor=lightblue, label="Vishal Waghmare", shape=rect, style=filled];
+12 [class="intent active", fillcolor=lightblue, label="not gonna tell", shape=rect, style=filled];
+13 [class="intent active", fillcolor=lightblue, label=123456, shape=rect, style=filled];
 0 -> "-1"  [class="", key=NONE, label=""];
 0 -> 1  [class=active, key=NONE, label=""];
-1 -> 5  [class=active, key=0];
-2 -> 6  [class=active, key=0];
-3 -> 7  [class=active, key=0];
-5 -> 2  [class=active, key=0];
-6 -> 3  [class=active, key=0];
-7 -> 3  [class=active, key=0];
+1 -> 9  [class=active, key=0];
+2 -> 4  [class=active, key=NONE, label=""];
+2 -> 10  [class=active, key=0];
+4 -> 8  [class=active, key=NONE, label=""];
+4 -> 11  [class=active, key=0];
+4 -> 12  [class=active, key=0];
+4 -> 13  [class=active, key=0];
+9 -> 2  [class=active, key=0];
+10 -> 2  [class=active, key=0];
+11 -> 4  [class=active, key=0];
+12 -> 4  [class=active, key=0];
+13 -> 4  [class=active, key=0];
 }
-2021-09-22 18:09:22,337 [INFO ]  Starting Rasa server on http://localhost:5005
-2021-09-22 18:09:22,350 [INFO ]  Loading model rasa_main\models\20210922-174010.tar.gz...
-2021-09-22 18:09:23,770 [INFO ]  Loading model rasa_main\models\20210922-174010.tar.gz...
-2021-09-22 18:09:42,032 [WARNI]  Failed to load type model. Path 'C:\Users\VISHAL~1\AppData\Local\Temp\tmp9kfd2tou\core\policy_2_UnexpecTEDIntentPolicy' doesn't exist.
-2021-09-22 18:09:42,035 [WARNI]  The UnexpecTED Intent Policy is currently experimental and might change or be removed in the future 🔬 Please share your feedback on it in the forum (https://forum.rasa.com) to help us make this feature ready for production.
-2021-09-22 18:09:42,038 [WARNI]  Failed to load type model. Path 'C:\Users\VISHAL~1\AppData\Local\Temp\tmp9kfd2tou\core\policy_3_TEDPolicy' doesn't exist.
-2021-09-22 18:09:42,053 [INFO ]  Rasa server is up and running.
-2021-09-22 18:19:15,172 [INFO ]  Starting Rasa server on http://localhost:5005
-2021-09-22 18:19:15,187 [INFO ]  Loading model rasa_main\models\20210922-174010.tar.gz...
-2021-09-22 18:19:16,733 [INFO ]  Loading model rasa_main\models\20210922-174010.tar.gz...
-2021-09-22 18:19:32,908 [WARNI]  Failed to load type model. Path 'C:\Users\VISHAL~1\AppData\Local\Temp\tmpcl2estcy\core\policy_2_UnexpecTEDIntentPolicy' doesn't exist.
-2021-09-22 18:19:32,910 [WARNI]  The UnexpecTED Intent Policy is currently experimental and might change or be removed in the future 🔬 Please share your feedback on it in the forum (https://forum.rasa.com) to help us make this feature ready for production.
-2021-09-22 18:19:32,913 [WARNI]  Failed to load type model. Path 'C:\Users\VISHAL~1\AppData\Local\Temp\tmpcl2estcy\core\policy_3_TEDPolicy' doesn't exist.
-2021-09-22 18:19:32,923 [INFO ]  Rasa server is up and running.
-2021-09-22 18:23:34,675 [INFO ]  Starting Rasa server on http://localhost:5005
-2021-09-22 18:23:34,692 [INFO ]  Loading model rasa_main\models\20210922-174010.tar.gz...
-2021-09-22 18:23:36,114 [INFO ]  Loading model rasa_main\models\20210922-174010.tar.gz...
-2021-09-22 18:23:52,833 [WARNI]  Failed to load type model. Path 'C:\Users\VISHAL~1\AppData\Local\Temp\tmpqsnxm3kv\core\policy_2_UnexpecTEDIntentPolicy' doesn't exist.
-2021-09-22 18:23:52,837 [WARNI]  The UnexpecTED Intent Policy is currently experimental and might change or be removed in the future 🔬 Please share your feedback on it in the forum (https://forum.rasa.com) to help us make this feature ready for production.
-2021-09-22 18:23:52,842 [WARNI]  Failed to load type model. Path 'C:\Users\VISHAL~1\AppData\Local\Temp\tmpqsnxm3kv\core\policy_3_TEDPolicy' doesn't exist.
-2021-09-22 18:23:52,856 [INFO ]  Rasa server is up and running.
-2021-09-22 18:32:27,975 [INFO ]  Starting Rasa server on http://localhost:5005
-2021-09-22 18:32:27,990 [INFO ]  Loading model rasa_main\models\20210922-174010.tar.gz...
-2021-09-22 18:32:29,359 [INFO ]  Loading model rasa_main\models\20210922-174010.tar.gz...
-2021-09-22 18:32:45,806 [WARNI]  Failed to load type model. Path 'C:\Users\VISHAL~1\AppData\Local\Temp\tmpqtllpqu1\core\policy_2_UnexpecTEDIntentPolicy' doesn't exist.
-2021-09-22 18:32:45,809 [WARNI]  The UnexpecTED Intent Policy is currently experimental and might change or be removed in the future 🔬 Please share your feedback on it in the forum (https://forum.rasa.com) to help us make this feature ready for production.
-2021-09-22 18:32:45,813 [WARNI]  Failed to load type model. Path 'C:\Users\VISHAL~1\AppData\Local\Temp\tmpqtllpqu1\core\policy_3_TEDPolicy' doesn't exist.
-2021-09-22 18:32:45,825 [INFO ]  Rasa server is up and running.

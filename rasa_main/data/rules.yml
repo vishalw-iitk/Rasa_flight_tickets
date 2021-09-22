@@ -2,7 +2,7 @@ version: "2.0"
 
 rules:
 
-- rule: To begin form
+- rule: To begin form, from greet
   steps:
   - intent: greet
   - action: begin_form
@@ -16,6 +16,69 @@ rules:
     - begin_status: True
     - confirm_status: null
   - active_loop: begin_form
+
+- rule: another ticket 1
+  condition:
+  - active_loop: begin_form
+  steps:
+    - intent: new_ticket
+    - action: action_deactivate_loop
+    - active_loop: null
+    - action: action_query_fresh
+    - action: action_set_begin_status_true
+    - slot_was_set:
+      - full_name: null
+      - contact_number: null
+      - from_location: null
+      - to_location: null
+      - date: null
+      - time: null
+      - begin_status: True
+      - confirm_status: null
+    - action: flights_form
+    - active_loop: flights_form
+
+- rule: another ticket 2
+  condition:
+  - active_loop: flights_form
+  steps:
+    - intent: new_ticket
+    - action: action_deactivate_loop
+    - active_loop: null
+    - action: action_query_fresh
+    - action: action_set_begin_status_true
+    - slot_was_set:
+      - full_name: null
+      - contact_number: null
+      - from_location: null
+      - to_location: null
+      - date: null
+      - time: null
+      - begin_status: True
+      - confirm_status: null
+    - action: flights_form
+    - active_loop: flights_form
+
+- rule: another ticket 3
+  condition:
+  - active_loop: confirm_form
+  steps:
+    - intent: new_ticket
+    - action: action_deactivate_loop
+    - active_loop: null
+    - action: action_query_fresh
+    - action: action_set_begin_status_true
+    - slot_was_set:
+      - full_name: null
+      - contact_number: null
+      - from_location: null
+      - to_location: null
+      - date: null
+      - time: null
+      - begin_status: True
+      - confirm_status: null
+    - action: flights_form
+    - active_loop: flights_form
 
 - rule: begin to flights form
   condition:
@@ -52,7 +115,7 @@ rules:
     - begin_status: False
     - confirm_status: null
     - requested_slot: null
-  - action: utter_rejection
+  - action: utter_visit_again
 
 - rule: flights form to confirm form
   condition:
@@ -110,7 +173,7 @@ rules:
     - begin_status: True
     - confirm_status: False
     - requested_slot: null
-  - action: utter_rejection
+  - action: utter_visit_again
 
 
 
