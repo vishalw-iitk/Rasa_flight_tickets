@@ -68,6 +68,7 @@ nlu:
     - book the tickets please
     - book it
     - tickets booking
+    - book the tickets
 - intent: confirm_tickets_booking
   examples: |
     - confirm it

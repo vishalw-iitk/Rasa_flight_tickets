@@ -2,214 +2,8 @@ version: "2.0"
 
 stories:
 
-- story: greet  booked tickets
-  steps:
-    - intent: greet
-    - action: utter_rejection
-    - intent: affirm
-    - action: flights_form
-    - active_loop: flights_form
-    - slot_was_set:
-      - full_name: "vishal waghmare"
-      - contact_number: "9898989898"
-      - from_location: "mumbai"
-      - to_location: "new york"
-      - date: "12/12/13"
-      - time: "12:32"
-      - begin_status: false
-      - confirm_status: false
-    - active_loop: null
-    - action: utter_submit
-    - action: utter_showpreview
-    - intent: deny
-    - action: utter_confirmation
 
-#     - action: begin_form
-#     - slot_was_set:
-#       - begin_status: false
-#     # - active_loop: begin_form
-#     - action: utter_rejection
-# - story: greet <> booked tickets
-#   steps:
-#     - intent: greet
-#     # - action: utter_to_begin_status
-#     - action: begin_form
-#     - active_loop: begin_form
-#     - slot_was_set:
-#       - begin_status: true
-#     - action: flights_form
-#     - active_loop: flights_form
-#     - slot_was_set:
-#       - full_name: "vishal waghmare"
-#       - contact_number: "9898989898"
-#       - from_location: "mumbai"
-#       - to_location: "new york"
-#       - date: "12/12/13"
-#       - time: "12:32"
-#     - action: confirm_form
-#     - active_loop: confirm_form
-#     - slot_was_set:
-#         - confirm_status: true
-#     - action: utter_confirmation
-#     - action: utter_show_booked_ticket
-
-# - story: book tickets - booked tickets
-#   steps:
-#     - intent: begin_tickets_booking
-#     - action: begin_form
-#     - active_loop: begin_form
-#     - slot_was_set:
-#       - begin_status: true
-#     - action: flights_form
-#     - active_loop: flights_form
-#     - slot_was_set:
-#       - full_name: "vishal waghmare"
-#       - contact_number: "9898989898"
-#       - from_location: "mumbai"
-#       - to_location: "new york"
-#       - date: "12/12/13"
-#       - time: "12:32"
-#     - action: confirm_form
-#     - active_loop: confirm_form
-#     - slot_was_set:
-#         - confirm_status: true
-#     - action: utter_confirmation
-#     - action: utter_show_booked_ticket
-
-# - story: greet - not to confirm tickets
-#   steps:
-#     - intent: greet
-#     # - action: utter_to_begin_status
-#     - action: begin_form
-#     - active_loop: begin_form
-#     - slot_was_set:
-#       - begin_status: true
-#     - action: flights_form
-#     - active_loop: flights_form
-#     - slot_was_set:
-#       - full_name: "vishal waghmare"
-#       - contact_number: "9898989898"
-#       - from_location: "mumbai"
-#       - to_location: "new york"
-#       - date: "12/12/13"
-#       - time: "12:32"
-#     - action: confirm_form
-#     - active_loop: confirm_form
-#     - slot_was_set:
-#         - confirm_status: false
-#     - action: utter_rejection
-
-# - story: greet - not to provide info
-#   steps:
-#     - intent: greet
-#     # - action: utter_ask_begin_status
-#     - action: begin_form
-#     - active_loop: begin_form
-#     - slot_was_set:
-#       - begin_status: false
-#     - action: utter_rejection
-
-########################
-
-
-
-# - story: acceptance to provide info for tickets
-#   steps:
-#     - intent: affirm
-#     - action: 
-#     - action: utter_ask_to_begin
-    
-
-
-#   - intent: greet
-#   - action: utter_ask_to_begin
-#   - intent: yes_for_tickets
-#   - action: flights_form
-#   - slot_was_set:
-#     - full_name: "vishal waghmare"
-#     - contact_number: "9898989898"
-#     - from_location: "mumbai"
-#     - to_location: "new york"
-#     - date: "12/12/13"
-#     - time: "12:32"
-#   - active_loop: flights_form
-#   - action: utter_submit
-#   - action: utter_showpreview
-#   - action: utter_ask_confirm
-#   - intent: yes_for_tickets
-#   - action: utter_confirmation
-#   - action: utter_show_booked_ticket
-
-# - story: ticket_rejected_after_preview
-#   steps:
-#   - intent: greet
-#   - action: utter_ask_to_begin
-#   - intent: yes_for_tickets
-#   - action: flights_form
-#   - slot_was_set:
-#     - full_name: "vishal waghmare"
-#     - contact_number: "9898989898"
-#     - from_location: "mumbai"
-#     - to_location: "new york"
-#     - date: "12/12/13"
-#     - time: "12:32"
-#   - active_loop: flights_form
-#   - action: utter_submit
-#   - action: utter_showpreview
-#   - action: utter_ask_confirm
-#   - intent: no_for_tickets
-#   - action: utter_rejection
-
-# - story: interactive_story_1
-#   steps:
-#   - intent: greet
-#   - action: utter_rejection
-#   - intent: affirm
-#   - action: flights_form
-#   - active_loop: flights_form
-#   # - slot_was_set:
-#     # - requested_slot: full_name
-#   - slot_was_set:
-#     - full_name: vishal
-#   # - slot_was_set:
-#     # - requested_slot: contact_number
-#   - slot_was_set:
-#     - contact_number: '98765'
-#   # - slot_was_set:
-#     # - contact_number: '98765'
-#   # - slot_was_set:
-#     # - requested_slot: from_location
-#   - slot_was_set:
-#     - from_location: mumbai
-#   # - slot_was_set:
-#     # - from_location: mumbai
-#   # - slot_was_set:
-#     # - requested_slot: to_location
-#   - slot_was_set:
-#     - to_location: new york
-#   # - slot_was_set:
-#     # - to_location: new york
-#   # - slot_was_set:
-#     # - requested_slot: date
-#   - slot_was_set:
-#     - date: 12/32
-#   # - slot_was_set:
-#     # - date: 12/32
-#   # - slot_was_set:
-#     # - requested_slot: time
-#   - slot_was_set:
-#     - time: 23:54
-#   # - slot_was_set:
-#     # - time: 23:54
-#   # - slot_was_set:
-#     # - requested_slot: null
-#   - active_loop: null
-#   - action: utter_submit
-#   - action: utter_showpreview
-#   - intent: deny
-#   - action: utter_confirmation
-
-##### working form based story
+##### experiment : working form based story
 # - story: greet  booked tickets
 #   steps:
 #     - intent: greet
@@ -231,3 +25,35 @@ stories:
 #     - action: utter_showpreview
 #     - intent: deny
 #     - action: utter_confirmation
+# - story: interactive_story_1
+#   steps:
+#   - intent: greet
+#   - action: begin_form
+#   - active_loop: begin_form
+#   - slot_was_set:
+#     - begin_status: false
+#   - slot_was_set:
+#     - requested_slot: null
+#   - active_loop: null
+#   - action: utter_ask_begin_status
+#   - intent: begin_tickets_booking
+#   - action: flights_form
+#   - active_loop: flights_form
+#   - slot_was_set:
+#     - requested_slot: full_name
+
+# - story: interactive_story_1
+#   steps:
+#   - intent: greet
+#   - action: begin_form
+#   - active_loop: begin_form
+#   - slot_was_set:
+#     - requested_slot: begin_status
+#   - intent: affirm
+#   - action: utter_rejection
+#   - intent: greet
+#   - action: begin_form
+#   - slot_was_set:
+#     - requested_slot: begin_status
+#   - intent: begin_tickets_booking
+#   - action: utter_rejection

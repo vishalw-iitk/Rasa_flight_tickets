@@ -16,12 +16,12 @@ intents:
 - deny
 - questions
 entities:
-- full_name
 - contact_number
-- from_location
-- to_location
 - date
+- from_location
+- full_name
 - time
+- to_location
 slots:
   full_name:
     type: text
@@ -43,11 +43,9 @@ slots:
     influence_conversation: true
   begin_status:
     type: bool
-    initial_value: false
     influence_conversation: true
   confirm_status:
-    type: bool    
-    initial_value: false
+    type: bool
     influence_conversation: true
 responses:
   utter_ask_begin_status:
@@ -77,24 +75,25 @@ responses:
       From: {from_location}
       To: {to_location}
       Date of onboarding: {date}
-      Price: $ 100 Boarding time: {time}
+      Price: $ 100
+      Boarding time: {time}
       Gate number: 12
       Flight code: QA909
   utter_ask_confirm_status:
   - text: Do you want to confirm this booking ?
   utter_confirmation:
-  - text: "We have booked your tickets successfully"
+  - text: We have booked your tickets successfully
   utter_show_booked_ticket:
   - text: |
       Your flight is booked as follows:
-      Service provider: Indigo Traveller
-      name: {full_name}
+      Service provider: Indigo
+      Traveller name: {full_name}
       Contact number: {contact_number}
       From: {from_location}
       To: {to_location}
       Date of onboarding: {date}
-      Price: $ 100 Boarding
-      time: {time}
+      Price: $ 100
+      Boarding time: {time}
       Gate number: 12
       Flight code: QA909
   utter_rejection:
@@ -103,13 +102,26 @@ responses:
 actions:
 - action_display
 - action_sayname
-- utter_ask_confirm_status
-# - utter_to_begin
 - utter_confirmation
 - utter_show_booked_ticket
 - utter_showpreview
 - utter_submit
 forms:
+  begin_form:
+    required_slots:
+      begin_status:
+      - type: from_intent
+        value: True
+        intent:
+        - affirm
+        - begin_tickets_booking
+        not_intent: deny
+      - type: from_intent
+        value: False
+        intent: deny
+        not_intent:
+        - affirm
+        - begin_tickets_booking
   flights_form:
     required_slots:
       full_name:
@@ -124,17 +136,41 @@ forms:
       - type: from_text
       time:
       - type: from_text
-  begin_form:
-    required_slots:
-      begin_status:
-      - type: from_trigger_intent
-        value: true
-        intent: [affirm, begin_tickets_booking]
-        not_intent: deny
   confirm_form:
     required_slots:
       confirm_status:
-      - type: from_trigger_intent
-        value: true
-        intent: [affirm, confirm_tickets_booking]
+      - type: from_intent
+        value: True
+        intent:
+        - affirm
+        - confirm_tickets_booking
         not_intent: deny
+      - type: from_intent
+        value: False
+        intent: deny
+        not_intent:
+        - affirm
+        - confirm_tickets_booking
+
+
+###### experiment : this form works
+# forms:
+#   begin_form:
+#     required_slots:
+#       begin_status:
+#       - type: from_intent
+#         value: True
+#         intent: affirm
+#         not_intent: deny
+#       - type: from_intent
+#         value: True
+#         intent: begin_tickets_booking
+#         not_intent: deny
+#       - type: from_intent
+#         value: False
+#         intent: deny
+#         not_intent: affirm
+#       - type: from_intent
+#         value: False
+#         intent: deny
+#         not_intent: begin_tickets_booking

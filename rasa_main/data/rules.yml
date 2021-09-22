@@ -2,81 +2,122 @@ version: "2.0"
 
 rules:
 
-# - rule: To begin form
-#   steps:
-#   - intent: greet
-#   - action: begin_form
-#   # - slot_was_set:
-#     # - begin_status: true
-#   - active_loop: begin_form
+- rule: To begin form
+  steps:
+  - intent: greet
+  - action: begin_form
+  - slot_was_set:
+    - full_name: null
+    - contact_number: null
+    - from_location: null
+    - to_location: null
+    - date: null
+    - time: null
+    - begin_status: True
+    - confirm_status: null
+  - active_loop: begin_form
 
-# - rule: begin submit form
-#   condition:
-#   - active_loop: begin_form
-#   steps:
-#   - action: begin_form
-#   - active_loop: null
-#   - slot_was_set:
-#     - requested_slot: null
-#   - action: utter_rejection
+- rule: begin to flights form
+  condition:
+  - active_loop: begin_form
+  steps:
+  - action: begin_form
+  - active_loop: null
+  - slot_was_set:
+    - full_name: null
+    - contact_number: null
+    - from_location: null
+    - to_location: null
+    - date: null
+    - time: null
+    - begin_status: True
+    - confirm_status: null
+    - requested_slot: null
+  - action: flights_form
+  - active_loop: flights_form
 
-# - rule: Ticket form
-#   steps:
-#   - intent: affirm
-#   - action: flights_form
-#   - slot_was_set:
-#     - full_name: "vishal waghmare"
-#     - contact_number: "9898989898"
-#     - from_location: "mumbai"
-#     - to_location: "new york"
-#     - date: "12/12/13"
-#     - time: "12:32"
-#     - begin_status: false
-#     - confirm_status: false
-#   - active_loop: flights_form
+- rule: not to begin
+  condition:
+  - active_loop: begin_form
+  steps:
+  - action: begin_form
+  - active_loop: null
+  - slot_was_set:
+    - full_name: null
+    - contact_number: null
+    - from_location: null
+    - to_location: null
+    - date: null
+    - time: null
+    - begin_status: False
+    - confirm_status: null
+    - requested_slot: null
+  - action: utter_rejection
 
-# - rule: ticket submit form
-#   condition:
-#   - active_loop: flights_form
-#   steps:
-#   - action: flights_form
-#   - active_loop: null
-#   - slot_was_set:
-#     - full_name: "vishal waghmare"
-#     - contact_number: "9898989898"
-#     - from_location: "mumbai"
-#     - to_location: "new york"
-#     - date: "12/12/13"
-#     - time: "12:32"
-#     - begin_status: false
-#     - confirm_status: false
-#     - requested_slot: null
-#   - action: utter_submit
-#   - action: utter_showpreview
-  # - action: utter_ask_confirm
+- rule: flights form to confirm form
+  condition:
+  - active_loop: flights_form
+  steps:
+  - action: flights_form
+  - active_loop: null
+  - slot_was_set:
+    - full_name: "vishal waghmare"
+    - contact_number: "9898989898"
+    - from_location: "mumbai"
+    - to_location: "new york"
+    - date: "12/12/13"
+    - time: "12:32"
+    - begin_status: True
+    - confirm_status: null
+    - requested_slot: null
+  - action: utter_submit
+  - action: utter_showpreview
+  - action: confirm_form
+  - active_loop: confirm_form
 
-- rule: confirm submit form
+- rule: to confirm
   condition:
   - active_loop: confirm_form
   steps:
   - action: confirm_form
   - active_loop: null
   - slot_was_set:
+    - full_name: "vishal waghmare"
+    - contact_number: "9898989898"
+    - from_location: "mumbai"
+    - to_location: "new york"
+    - date: "12/12/13"
+    - time: "12:32"
+    - begin_status: True
+    - confirm_status: True
     - requested_slot: null
+  - action: utter_confirmation
+  - action: utter_show_booked_ticket
 
-# - rule: Say goodbye anytime the user says goodbye
-#   steps:
-#   - intent: goodbye
-#   - action: utter_goodbye
+- rule: not to confirm
+  condition:
+  - active_loop: confirm_form
+  steps:
+  - action: confirm_form
+  - active_loop: null
+  - slot_was_set:
+    - full_name: "vishal waghmare"
+    - contact_number: "9898989898"
+    - from_location: "mumbai"
+    - to_location: "new york"
+    - date: "12/12/13"
+    - time: "12:32"
+    - begin_status: True
+    - confirm_status: False
+    - requested_slot: null
+  - action: utter_rejection
 
-# - rule: Say 'I am a bot' anytime the user challenges
-#   steps:
-#   - intent: bot_challenge
-#   - action: utter_iamabot
 
 
 
-##### working rules
+
+
+##### experiment : working rules
 
 # - rule: Ticket form
 #   steps:
