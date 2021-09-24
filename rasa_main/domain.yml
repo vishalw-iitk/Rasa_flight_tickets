@@ -100,7 +100,8 @@ responses:
       Flight code: QA909
   utter_visit_again:
   - text: |
-      Thanks for your time Please visit us again for booking the flight tickets
+      Thanks for your time
+      Please visit us again for booking the flight tickets
   utter_thanks:
   - text: |
       Your welcome!
@@ -113,7 +114,7 @@ responses:
   - text: |
       I am from Mirafra
       My actions come from my owner
-      I am trained for all these action
+      I am trained for all these actions
       I can book your flight tickets
   utter_yet_to_generate:
   - text: |

@@ -5,6 +5,7 @@ rules:
 - rule: To begin form, from greet
   steps:
   - intent: greet
+  - action: action_query_fresh
   - action: begin_form
   - slot_was_set:
     - full_name: null
@@ -13,7 +14,7 @@ rules:
     - to_location: null
     - date: null
     - time: null
-    - begin_status: True
+    - begin_status: null
     - confirm_status: null
   - active_loop: begin_form
 

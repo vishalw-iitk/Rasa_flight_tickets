@@ -23,3 +23,7 @@ Sample flight ticket requirements:
 - To: london
 - Date of onboarding: 12/32/32
 - Boarding time: 34:43
+
+Configs:
+- Python version : 3.7
+- rasa : 2.8.6
