@@ -126,7 +126,8 @@ rules:
     - confirm_status: null
     - confirm_message: null
     - requested_slot: null
-  - action: utter_submit
+  - action: flights_form
+  - active_loop: flights_form
 
 # - rule: till all the names are received 1
 #   condition:
@@ -263,7 +264,9 @@ rules:
   - active_loop: null
   - slot_was_set:
     - begin_status: True
-    - full_name: "vishal waghmare"
+    - full_name: null
+    - all_names: "some name like anything"
+    - stored_all_names: True
     - contact_number: "9898989898"
     - from_location: "mumbai"
     - to_location: "new york"
@@ -288,7 +291,9 @@ rules:
   - active_loop: null
   - slot_was_set:
     - begin_status: True
-    - full_name: "vishal waghmare"
+    - full_name: null
+    - all_names: "some name like anything"
+    - stored_all_names: True
     - contact_number: "9898989898"
     - from_location: "mumbai"
     - to_location: "new york"
@@ -310,8 +315,10 @@ rules:
   - action: confirm_form
   - active_loop: null
   - slot_was_set:
-    - begin_status: True
-    - full_name: "vishal waghmare"
+    - begin_status: true
+    - full_name: null
+    - all_names: "some name like anything"
+    - stored_all_names: True
     - contact_number: "9898989898"
     - from_location: "mumbai"
     - to_location: "new york"

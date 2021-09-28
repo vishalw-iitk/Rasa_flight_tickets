@@ -38,10 +38,6 @@ def get_headers(token):
     }
     return headers
 
-# def get_from_slot(*args):
-    # for argslot in args:
-        # something
-
 def get_iata_code(dict_cityname, cityname):
     if len(cityname) == 3:
         return cityname.upper()
@@ -57,26 +53,8 @@ def get_api_and_params(opt):
         # ('origin', 'PAR'),
         # ('maxPrice', '200'),
     # )
-    # def get_from_slot(slot_name):
-        # slot_value = get_from_actions(slot_name)
-        # required_value = get_from_mapping(slot_value)
-        # return required_value
+
     api = 'https://test.api.amadeus.com/v2/shopping/flight-offers'
-
-
-    # originLocationCode = get_from_slot(from_location)
-    # destinationLocationCode = get_from_slot(to_location)
-    # departureDate = get_from_slot(departuedate)
-    # returnDate = get_from_slot(returndate)
-    # adults = get_from_slot(adults)
-    # nonStop = get_from_slot(nonstop)
-    # maxPrice = get_from_slot(maxprice)
-
-    # args = ('from_location', 'to_location', 'departuredate', 'returndate', 'adults', 'nonstop', 'maxprice')
-    # originLocationCode, destinationLocationCode, departureDate,\
-    #  returnDate, adults, nonStop, maxPrice\
-    #  = get_from_slot(*args)
-    
 
     params = (
         ('originLocationCode', originLocationCode),
@@ -101,13 +79,6 @@ def get_response_data(response, data_key):
     return response[data_key]
 def get_flight_code(carrierCode, number):
     return carrierCode + str(number)
-def provide_output_to_slots(final_response):
-    print(final_response)
-def print_length_of_response_firstdataponits(response_data):
-    print("number of datapoint : ", len(response_data[0]))
-def print_response_firstdatapoint(response_data):
-    print(response_data[0])
-
 def add_more_response_manually(gate_number, segment_response):
     segment_response['gate_number'] = gate_number
     seatlist = ['A', 'B', 'C', 'D', 'E', 'F']
@@ -125,7 +96,6 @@ def get_required_response(opt, dict_citycode, ticket_id, direction, response_dat
     # response_data[i]['itineraries'][j]['segments'][k]
     # i = ticket_id; j = 0 if oneway, 1 if twoway; k = number of stops in a single way
     segment_resp = {"segment" : []}
-    # required_response = 
     num_of_segments = len(response_data[ticket_id]['itineraries'][direction]['segments'])
     for segment in range(0, num_of_segments):
         segment_response = {}
@@ -232,12 +202,6 @@ def main(opt):
             segment_response = get_required_response(opt, dict_citycode, ticket_id, direction, response_data)
             direction_response["direction"].append(segment_response)
         final_response["data"].append(direction_response)
-    # print("in amadeus", final_response)
-    # provide_output_to_slots(final_response)
-    # print(100*"*")
-    # print_length_of_response_firstdataponits(response_data)
-    # print(100*"*")
-    # print_response_firstdatapoint(response_data)
 
     return final_response
 
@@ -245,58 +209,6 @@ def main(opt):
 if "__main__" == __name__:
     opt = parse_opt(True)
     main(opt)
-
-# requesting for
-# ('originLocationCode', 'BOM'),
-# ('destinationLocationCode', 'CCU'),
-# ('departureDate', '2021-11-10'), #YEAR-MONTH-DATE
-# ('returnDate', '2021-11-11'), #YEAR-MONTH-DATE
-# ('adults', '1'),
-# ('nonStop', 'false'),
-# ('maxPrice', '300'),
-
-# current
-# name, mob. no.
-# from, to
-# date, time
-
-# Hey. Please book a ticket for me from BOM to CCU
-
-# Hey. Please book a ticket for me from BOM to CCU on 12/12/12
-
-# # Hey. Please book a ticket for me from BOM to CCU
-# bot: On which date?
-
-# # Hey. Please book a ticket for me from BOM
-# bot: to where
-# bot: On which date?
-
-# # Hey. Please book a ticket for me from BOM
-# bot: to where
-# CCU on 12/12/12
-
-
-
-
-
-# 
-
-# departuredate
-
-# final_response = {
-    #     "data" : [
-    #         {
-    #             "direction" : [
-    #                 {
-    #                     "segment" : [
-    #                         {},
-    #                         {}
-    #                     ]
-    #                 }
-    #             ]
-    #     }
-    #     ]
-    # }
 
 # 1 ticket
 {

@@ -102,14 +102,6 @@ class Actionshowpreview(Action):
         num_of_tickets = adults
         nonStop = str(nonStop).lower()
         
-        # originLocationName= 'BOM'
-        # destinationLocationName= 'CCU'
-        # departureDate= '2021-11-10' #YEAR-MONTH-DATE
-        # returnDate= '2021-11-11' #YEAR-MONTH-DATE
-        # adults='1'
-        # nonStop= 'false'
-        # maxPrice= '300' 
-
 
         final_response = amadeus.run(
             originLocationName = originLocationName,
@@ -119,37 +111,12 @@ class Actionshowpreview(Action):
         adults = adults,
         nonStop = nonStop,
         maxPrice = budget)
-        
-        # print(final_response)
-        # final_response['data'][0]['direction'][0 and 1]['segment']['all']
-        
-        # seg_res = final_response['data'][ticket_id]['direction'][direction]['segment'][segment_number]
-        
-        # seg_res['origin']
-        # seg_res['destination']
-        # seg_res['origin_iata_code']
-        # seg_res['destination_iata_code']
-        # seg_res['departure_date']
-        # seg_res['departure_time']
-        # seg_res['arrival_date']
-        # seg_res['arrival_time']
-        # np.round(seg_res['price'], 1)
-        # seg_res['flight_code']
-        # seg_res['aircraft_code']
-        # seg_res['duration']
-        # seg_res['num_of_stops']
-        # seg_res['cabin']
-        # seg_res['origin_airportname']
-        # seg_res['destination_airportname']
-        # seg_res['origin_GMT']
-        # seg_res['destination_GMT']
-        # seg_res['numberOfBookableSeats']
-        # seg_res['gate_number']
-        # seg_res['seat_number']
 
         preview_message = f'We have received the info for {num_of_tickets} tickets as requested by you\n'
         preview_message += 'These are names of ticket holders\n'
-        all_names = all_names.split(';')
+        # all_names = all_names.split(';')
+        all_names_list = all_names.split(';')
+        all_names_list.pop()
         for name in all_names:
             preview_message += f'{name}\n'
         preview_message += f'contact number : {contact_number}\n'
@@ -251,22 +218,3 @@ class Actiongetnames(Action):
             return[SlotSet("full_name", None), SlotSet("all_names", all_names), SlotSet("stored_all_names", True)]
         else:
             return[SlotSet("full_name", None), SlotSet("all_names", all_names), SlotSet("stored_all_names", False)]
-
-        # return [AllSlotsReset()]
-# class Actiongetcontact(Action):
-#     def name(self) -> Text:
-#         return "action_get_contact"
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-
-# action : num of tickets form
-# active loop : num of tickets
-# action : num of tickets form(slot requesting)
-# if slots are not filled yet
-    # action : num of tickets form(slot requesting)
-# if slots are filled:
-    # active loop : null
-    # action: next_action
-
