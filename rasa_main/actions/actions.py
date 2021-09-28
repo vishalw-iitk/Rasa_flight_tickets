@@ -11,7 +11,7 @@ from typing import Any, Text, Dict, List
 
 import sys
 import numpy as np
-sys.path.append('../..')
+sys.path.append('..')
 from Flights_API import amadeus
 
 from rasa_sdk import Action, Tracker
@@ -90,7 +90,7 @@ class Actionshowpreview(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        all_names = tracker.get_slot("full_name")
+        all_names = tracker.get_slot("all_names")
         contact_number = tracker.get_slot("contact_number")
         originLocationName = tracker.get_slot("from_location")
         destinationLocationName = tracker.get_slot("to_location")
@@ -100,6 +100,7 @@ class Actionshowpreview(Action):
         nonStop = tracker.get_slot("nonStop")
         budget = tracker.get_slot("maxPrice")
         num_of_tickets = adults
+        nonStop = str(nonStop).lower()
         
         # originLocationName= 'BOM'
         # destinationLocationName= 'CCU'
@@ -110,10 +111,17 @@ class Actionshowpreview(Action):
         # maxPrice= '300' 
 
 
-        final_response = amadeus.run(originLocationName, destinationLocationName, departureDate,\
-                                returnDate, adults, nonStop, budget)
+        final_response = amadeus.run(
+            originLocationName = originLocationName,
+        destinationLocationName = destinationLocationName,
+        departureDate = departureDate,
+        returnDate = returnDate,
+        adults = adults,
+        nonStop = nonStop,
+        maxPrice = budget)
         
-        final_response['data'][0]['direction'][0 and 1]['segment']['all']
+        # print(final_response)
+        # final_response['data'][0]['direction'][0 and 1]['segment']['all']
         
         # seg_res = final_response['data'][ticket_id]['direction'][direction]['segment'][segment_number]
         
@@ -144,6 +152,7 @@ class Actionshowpreview(Action):
         all_names = all_names.split(';')
         for name in all_names:
             preview_message += f'{name}\n'
+        preview_message += f'contact number : {contact_number}\n'
         preview_message += 'Here is the preview for the complete journey of any one of you\n'
         # #for loop
         # for ticket_id in range(0, num_of_tickets):
@@ -162,31 +171,28 @@ class Actionshowpreview(Action):
                         sr['arrival_date'], sr['arrival_time'], np.round(sr['price'], 1), sr['flight_code'], sr['aircraft_code'], sr['duration'], \
                             sr['num_of_stops'], sr['cabin'],sr['origin_airportname'], sr['destination_airportname'], sr['origin_GMT'], sr['destination_GMT'], \
                                 sr['numberOfBookableSeats'], sr['gate_number'], sr['seat_number']
-                                
-                    preview_message += f'contact number : {contact_number}\n'
-                    preview_message += f'contact number : {origin}\n'
-                    preview_message += f'contact number : {destination}\n'
-                    preview_message += f'contact number : {origin_iata_code}\n'
-                    preview_message += f'contact number : {destination_iata_code}\n'
-                    preview_message += f'contact number : {departure_date}\n'
-                    preview_message += f'contact number : {departure_time}\n'
-                    preview_message += f'contact number : {arrival_date}\n'
-                    preview_message += f'contact number : {arrival_time}\n'
-                    preview_message += f'contact number : {price}\n'
-                    preview_message += f'contact number : {flight_code}\n'
-                    preview_message += f'contact number : {aircraft_code}\n'
-                    preview_message += f'contact number : {duration}\n'
-                    preview_message += f'contact number : {num_of_stops}\n'
-                    preview_message += f'contact number : {cabin}\n'
-                    preview_message += f'contact number : {origin_airportname}\n'
-                    preview_message += f'contact number : {destination_airportname}\n'
-                    preview_message += f'contact number : {origin_GMT}\n'
-                    preview_message += f'contact number : {destination_GMT}\n'
-                    preview_message += f'contact number : {numberOfBookableSeats}\n'
-                    preview_message += f'contact number : {gate_number}\n'
-                    preview_message += f'contact number : {seat_number}\n'
-                    preview_message += f'contact number : {contact_number}\n'
-                    preview_message += f'contact number : {contact_number}\n'
+                    preview_message += f'Segment {segment}\n'
+                    preview_message += f'origin            : {origin}\n'
+                    preview_message += f'destination       : {destination}\n'
+                    preview_message += f'departure_date    : {departure_date}\n'
+                    preview_message += f'departure_time    : {departure_time}\n'
+                    preview_message += f'arrival_date      : {arrival_date}\n'
+                    preview_message += f'arrival_time      : {arrival_time}\n'
+                    preview_message += f'price             : {price}\n'
+                    preview_message += f'flight_code       : {flight_code}\n'
+                    preview_message += f'aircraft_code     : {aircraft_code}\n'
+                    preview_message += f'duration          : {duration}\n'
+                    preview_message += f'num_of_stops      : {num_of_stops}\n'
+                    preview_message += f'cabin             : {cabin}\n'
+                    preview_message += f'origin_GMT        : {origin_GMT}\n'
+                    preview_message += f'destination_GMT   : {destination_GMT}\n'
+                    preview_message += f'gate_number       : {gate_number}\n'
+                    preview_message += f'seat_number       : {seat_number}\n'
+                    preview_message += f'origin_airportname: {origin_airportname}\n'
+                    preview_message += f'origin_iata_code  : {origin_iata_code}\n'
+                    preview_message += f'destination_airportname: {destination_airportname}\n'
+                    preview_message += f'destination_iata_code  : {destination_iata_code}\n'
+                    preview_message += f'numberOfBookableSeats  : {numberOfBookableSeats}\n\n'
         #             # ---------
         # preview_message += 'Let me know if should confirm this\n'
         # preview_message += 'Tickets for all of you will be booked\n'
@@ -225,26 +231,26 @@ class Actionqueryfresh(Action):
 class Actiongetnames(Action):
     def name(self) -> Text:
         return "action_get_names"
-    def update_name(self, traveller_name):
-        self.name_list = []
-        self.ticket_number = 0
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         num_of_tickets = tracker.get_slot("adults")
-        name = tracker.get_slot("full_name")
-        self.ticket_number += 1
-    
-        if len(self.name_list) < num_of_tickets:
-            dispatcher.utter_message(text=f"Provide the name of passenger {self.ticket_number}")
-            self.name_list.append(name)
-            return[SlotSet("full_name", None)]
+        num_of_tickets = int(num_of_tickets)
+        full_name = tracker.get_slot("full_name")
+        all_names = tracker.get_slot("all_names")
+        # stored_all_names = tracker.get_slot("stored_all_names")
+        
+        # all_names = ''
+        full_name += ';'
+        all_names += full_name
+
+        all_names_list = all_names.split(';')
+        all_names_list.pop()
+        print("all names", all_names, "\nnum tickets", num_of_tickets)
+        if len(all_names_list) == num_of_tickets:
+            return[SlotSet("full_name", None), SlotSet("all_names", all_names), SlotSet("stored_all_names", True)]
         else:
-            all_names = ''
-            for name in self.name_list:
-                all_names += name+';'
-            all_names = all_names[:-1]
-            return[SlotSet("full_name", all_names)]
+            return[SlotSet("full_name", None), SlotSet("all_names", all_names), SlotSet("stored_all_names", False)]
 
         # return [AllSlotsReset()]
 # class Actiongetcontact(Action):
@@ -254,3 +260,13 @@ class Actiongetnames(Action):
 #             tracker: Tracker,
 #             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
+
+# action : num of tickets form
+# active loop : num of tickets
+# action : num of tickets form(slot requesting)
+# if slots are not filled yet
+    # action : num of tickets form(slot requesting)
+# if slots are filled:
+    # active loop : null
+    # action: next_action
+

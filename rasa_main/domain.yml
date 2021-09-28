@@ -22,13 +22,11 @@ intents:
 - questions
 - thanks
 entities:
-- contact_number
 - date
 - from_location
 - full_name
 - to_location
 - num
-- maxPrice
 slots:
   begin_status:
     type: bool
@@ -38,7 +36,16 @@ slots:
     influence_conversation: true
   full_name:
     type: text
+    # auto_fill: false
     influence_conversation: true
+  all_names:
+    type: text
+    initial_value: ''
+    influence_conversation: true
+  stored_all_names:
+    type: bool
+    initial_value: false
+    influence_conversation: true  
   contact_number:
     type: text
     influence_conversation: true
@@ -48,7 +55,10 @@ slots:
   to_location:
     type: text
     influence_conversation: true
-  date:
+  departureDate:
+    type: text
+    influence_conversation: true
+  returnDate:
     type: text
     influence_conversation: true
   nonStop:
@@ -158,9 +168,9 @@ responses:
       This appears to be a your preferred on boarding time to me..
 actions:
 - action_display
+- action_get_names
 - action_query_fresh
 - action_sayname
-- action_get_names
 - action_set_begin_status_true
 - utter_confirmation
 - utter_show_booked_ticket
@@ -190,23 +200,24 @@ forms:
         intent:
         - numerical
         - number_of_tickets
-  names_form:
-    required_slots:
-      full_name:
-      - type: from_entity
-        entity: full_name
-        intent:
-        - tell_name
-      - type: from_text
-        intent:
-        - tell_name
+  # names_form:
+  #   required_slots:
+  #     full_name:
+  #     - type: from_entity
+  #       entity: full_name
+  #       intent:
+  #       - tell_name
+  #     - type: from_text
+  #       intent:
+  #       - tell_name
   flights_form:
     required_slots:
       contact_number:
       - type: from_entity
-        entity: contact_number
+        entity: num
         intent:
         - tell_contact
+        - numerical
       from_location:
       - type: from_entity
         entity: from_location
@@ -223,7 +234,12 @@ forms:
       - type: from_text
         intent:
         - tell_to_location
-      date:
+      departureDate:
+      - type: from_entity
+        entity: date
+        intent:
+        - tell_date
+      returnDate:
       - type: from_entity
         entity: date
         intent:
@@ -241,9 +257,10 @@ forms:
         - non_stop_only
       maxPrice:
       - type: from_entity
-        entity: maxPrice
+        entity: num
         intent:
         - tell_max_price
+        - numerical
 
   confirm_form:
     required_slots:

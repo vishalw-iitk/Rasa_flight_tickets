@@ -9,10 +9,13 @@ rules:
   - action: begin_form
   - slot_was_set:
     - full_name: null
+    - all_names: ''
+    - stored_all_names: false
     - contact_number: null
     - from_location: null
     - to_location: null
-    - date: null
+    - departureDate: null
+    - returnDate: null
     - adults : null
     - nonStop : null
     - maxPrice : null
@@ -21,77 +24,6 @@ rules:
     - confirm_status: null
   - active_loop: begin_form
 
-- rule: another ticket 1
-  condition:
-  - active_loop: begin_form
-  steps:
-    - intent: new_ticket
-    - action: action_deactivate_loop
-    - active_loop: null
-    - action: action_query_fresh
-    - action: action_set_begin_status_true
-    - slot_was_set:
-      - full_name: null
-      - contact_number: null
-      - from_location: null
-      - to_location: null
-      - date: null
-      - adults : null
-      - nonStop : null
-      - maxPrice : null
-      - begin_status: True
-      - confirm_message: null
-      - confirm_status: null
-    - action : num_tickets_form
-    - active_loop: num_tickets_form
-
-- rule: another ticket 2
-  condition:
-  - active_loop: flights_form
-  steps:
-    - intent: new_ticket
-    - action: action_deactivate_loop
-    - active_loop: null
-    - action: action_query_fresh
-    - action: action_set_begin_status_true
-    - slot_was_set:
-      - full_name: null
-      - contact_number: null
-      - from_location: null
-      - to_location: null
-      - date: null    
-      - adults : null
-      - nonStop : null
-      - maxPrice : null
-      - begin_status: True
-      - confirm_message: null
-      - confirm_status: null
-    - action : num_tickets_form
-    - active_loop: num_tickets_form
-
-- rule: another ticket 3
-  condition:
-  - active_loop: confirm_form
-  steps:
-    - intent: new_ticket
-    - action: action_deactivate_loop
-    - active_loop: null
-    - action: action_query_fresh
-    - action: action_set_begin_status_true
-    - slot_was_set:
-      - full_name: null
-      - contact_number: null
-      - from_location: null
-      - to_location: null
-      - date: null      
-      - adults : null
-      - nonStop : null
-      - maxPrice : null
-      - begin_status: True
-      - confirm_message: null
-      - confirm_status: null
-    - action : num_tickets_form
-    - active_loop: num_tickets_form
 
 - rule: not to begin
   condition:
@@ -102,10 +34,13 @@ rules:
   - slot_was_set:
     - begin_status: False
     - full_name: null
+    - all_names: ''
+    - stored_all_names: false
     - contact_number: null
     - from_location: null
     - to_location: null
-    - date: null
+    - departureDate: null
+    - returnDate: null
     - adults : null
     - nonStop : null
     - maxPrice : null
@@ -123,10 +58,13 @@ rules:
   - active_loop: null
   - slot_was_set:
     - full_name: null
+    - all_names: ''
+    - stored_all_names: false
     - contact_number: null
     - from_location: null
     - to_location: null
-    - date: null
+    - departureDate: null
+    - returnDate: null
     - adults : null
     - nonStop : null
     - maxPrice : null
@@ -146,45 +84,176 @@ rules:
   - slot_was_set:
     - begin_status: True
     - full_name: null
+    - all_names: ''
+    - stored_all_names: false
     - contact_number: null
     - from_location: null
     - to_location: null
-    - date: null
-    - adults : null
+    - departureDate: null
+    - returnDate: null
+    - adults : '1'
     - nonStop : null
     - maxPrice : null
     - confirm_status: null
     - confirm_message: null
     - requested_slot: null
-  - action: names_form
-  - active_loop: names_form
+  - action: utter_ask_full_name
+  
+  # - action: names_form
+  # - active_loop: names_form
 
-- rule: till all the names are received
-  condition:
-  - active_loop: names_form
-  # - slot_was_set:
-    # - begin_status: True
-    # - full_name: null
+- rule: till all the names are received 1
   steps:
-    - action : names_form
-    - active_loop: null
-    - action : action_get_names
-    - slot_was_set:
-      - begin_status: True
-      - full_name: "vishal"
-      - contact_number: "9898989898"
-      - from_location: "mumbai"
-      - to_location: "new york"
-      - date: "12/12/13"
-      - adults : '1'
-      - nonStop : 'false'
-      - maxPrice : '300'
-      - confirm_message: null
-      - confirm_status: null
-      - requested_slot: null
-    - action : flights_form
-    - active_loop : flights_form
-    
+  - intent: tell_name
+  - slot_was_set:
+    - requested_slot: full_name
+  - slot_was_set:
+    - full_name: "Vishal"
+  - action: action_get_names
+  - slot_was_set:
+    - begin_status: True
+    - full_name: null
+    - stored_all_names: true
+    - adults : '1'
+    - all_names: ''
+    - contact_number: null
+    - from_location: null
+    - to_location: null
+    - departureDate: null
+    - returnDate: null
+    - nonStop : null
+    - maxPrice : null
+    - confirm_status: null
+    - confirm_message: null
+    - requested_slot: null
+  - action: utter_submit
+
+# - rule: till all the names are received 1
+#   condition:
+#   - active_loop: names_form
+#   - slot_was_set:
+#     - full_name: null
+#     - stored_all_names: false
+#   steps:
+#   - action: names_form
+#   - active_loop: null
+#   - slot_was_set:
+#     - begin_status: True
+#     - full_name: "Vishal Waghmare"
+#     - stored_all_names: false
+#     - adults : '1'
+#     - all_names: ''
+#     - contact_number: null
+#     - from_location: null
+#     - to_location: null
+#     - departureDate: null
+#     - returnDate: null
+#     - nonStop : null
+#     - maxPrice : null
+#     - confirm_status: null
+#     - confirm_message: null
+#     - requested_slot: null
+#   - action: action_get_names
+#   - action: utter_submit
+  # - action: names_form
+  # - active_loop: names_form
+
+
+
+
+
+
+
+
+# - rule: till all the names are received 2
+#   condition:
+#   - active_loop: names_form
+#   steps:
+#   - action: names_form
+#   - active_loop: null
+#   - slot_was_set:
+#     - begin_status: True
+#     - adults : '1'
+#     - full_name: null
+#     - all_names: ''
+#     - stored_all_names: true
+#     - contact_number: null
+#     - from_location: null
+#     - to_location: null
+#     - departureDate: null
+#     - returnDate: null
+#     - nonStop : null
+#     - maxPrice : null
+#     - confirm_status: null
+#     - confirm_message: null
+#     - requested_slot: null
+#   - action : flights_form
+#   - active_loop : flights_form
+
+  # - slot_was_set:
+  #   - begin_status: True
+  #   - adults : '1'
+  #   - full_name: null
+  #   - all_names: "some name like anything"
+  #   - stored_all_names: false
+  #   - contact_number: null
+  #   - from_location: null
+  #   - to_location: null
+  #   - departureDate: null
+  #   - returnDate: null
+  #   - nonStop : null
+  #   - maxPrice : null
+  #   - confirm_status: null
+  #   - confirm_message: null
+  #   - requested_slot: null 
+  # - action: names_form
+  # - active_loop: names_form
+
+# - rule: till all the names are received 2
+#   condition:
+#   - active_loop: names_form
+#   steps:
+#   - action: names_form
+#   - active_loop: null
+#   - slot_was_set:
+#     - begin_status: True
+#     - adults : '1'
+#     - full_name: "Vishal Waghmare"
+#     - all_names: ''
+#     - stored_all_names: false
+#     - contact_number: null
+#     - from_location: null
+#     - to_location: null
+#     - departureDate: null
+#     - returnDate: null
+#     - adults : '1'
+#     - nonStop : null
+#     - maxPrice : null
+#     - confirm_status: null
+#     - confirm_message: null
+#     - requested_slot: null
+#   - action: action_get_names
+#   - slot_was_set:
+#     - begin_status: True
+#     - full_name: null
+#     - all_names: "some name like anything"
+#     - stored_all_names: True
+#     - contact_number: null
+#     - from_location: null
+#     - to_location: null
+#     - departureDate: null
+#     - returnDate: null
+#     - adults : '1'
+#     - nonStop : null
+#     - maxPrice : null
+#     - begin_status: True
+#     - confirm_status: null
+#     - confirm_message: null
+#     - requested_slot: null 
+#   - action : flights_form
+#   - active_loop : flights_form
+  # wait_for_user_input: false
+  
 
 - rule: flights form to confirm form
   condition:
@@ -198,7 +267,8 @@ rules:
     - contact_number: "9898989898"
     - from_location: "mumbai"
     - to_location: "new york"
-    - date: "12/12/13"
+    - departureDate: "2021-11-10"
+    - returnDate: "2021-11-11"
     - adults : '1'
     - nonStop : 'false'
     - maxPrice : '300'
@@ -222,7 +292,8 @@ rules:
     - contact_number: "9898989898"
     - from_location: "mumbai"
     - to_location: "new york"
-    - date: "12/12/13"
+    - departureDate: "2021-11-10"
+    - returnDate: "2021-11-11"
     - adults : '1'
     - nonStop : 'false'
     - maxPrice : '300'
@@ -244,7 +315,8 @@ rules:
     - contact_number: "9898989898"
     - from_location: "mumbai"
     - to_location: "new york"
-    - date: "12/12/13"
+    - departureDate: "2021-11-10"
+    - returnDate: "2021-11-11"
     - adults : '1'
     - nonStop : 'false'
     - maxPrice : '300'
@@ -269,7 +341,8 @@ rules:
 #     - contact_number: "9898989898"
 #     - from_location: "mumbai"
 #     - to_location: "new york"
-#     - date: "12/12/13"
+#     - departureDate: "2021-11-10"
+    # - returnDate: "2021-11-11"
 #     - time: "12:32"
 #     - begin_status: false
 #     - confirm_status: false
@@ -286,7 +359,8 @@ rules:
 #     - contact_number: "9898989898"
 #     - from_location: "mumbai"
 #     - to_location: "new york"
-#     - date: "12/12/13"
+#     - departureDate: "2021-11-10"
+    # - returnDate: "2021-11-11"
 #     - time: "12:32"
 #     - begin_status: false
 #     - confirm_status: false
@@ -294,3 +368,83 @@ rules:
 #   - action: utter_submit
 #   - action: utter_showpreview
 #   # - action: utter_ask_confirm
+
+
+
+
+
+
+# - rule: another ticket 1
+#   condition:
+#   - active_loop: begin_form
+#   steps:
+#     - intent: new_ticket
+#     - action: action_deactivate_loop
+#     - active_loop: null
+#     - action: action_query_fresh
+#     - action: action_set_begin_status_true
+#     - slot_was_set:
+#       - full_name: null
+#       - contact_number: null
+#       - from_location: null
+#       - to_location: null
+#       - departureDate: null
+#       - returnDate: null
+#       - adults : null
+#       - nonStop : null
+#       - maxPrice : null
+#       - begin_status: True
+#       - confirm_message: null
+#       - confirm_status: null
+#     - action : num_tickets_form
+#     - active_loop: num_tickets_form
+
+# - rule: another ticket 2
+#   condition:
+#   - active_loop: flights_form
+#   steps:
+#     - intent: new_ticket
+#     - action: action_deactivate_loop
+#     - active_loop: null
+#     - action: action_query_fresh
+#     - action: action_set_begin_status_true
+#     - slot_was_set:
+#       - full_name: null
+#       - contact_number: null
+#       - from_location: null
+#       - to_location: null
+#       - departureDate: null
+#       - returnDate: null    
+#       - adults : null
+#       - nonStop : null
+#       - maxPrice : null
+#       - begin_status: True
+#       - confirm_message: null
+#       - confirm_status: null
+#     - action : num_tickets_form
+#     - active_loop: num_tickets_form
+
+# - rule: another ticket 3
+#   condition:
+#   - active_loop: confirm_form
+#   steps:
+#     - intent: new_ticket
+#     - action: action_deactivate_loop
+#     - active_loop: null
+#     - action: action_query_fresh
+#     - action: action_set_begin_status_true
+#     - slot_was_set:
+#       - full_name: null
+#       - contact_number: null
+#       - from_location: null
+#       - to_location: null
+#       - departureDate: null
+#       - returnDate: null      
+#       - adults : null
+#       - nonStop : null
+#       - maxPrice : null
+#       - begin_status: True
+#       - confirm_message: null
+#       - confirm_status: null
+#     - action : num_tickets_form
+#     - active_loop: num_tickets_form

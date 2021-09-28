@@ -104,10 +104,10 @@ nlu:
     - my name is vishal
 - intent: tell_contact
   examples: |
-    - [9898989898](contact_number)
-    - my contact number is [9998686860](contact_number)
-    - my mobile number is [7678765432](contact_number)
-    - [767677677](contact_number)
+    - [9898989898](num)
+    - my contact number is [9998686860](num)
+    - my mobile number is [7678765432](num)
+    - [767677677](num)
 - intent: tell_from_location
   examples: |
     - [mumbai](from_location)
@@ -124,16 +124,16 @@ nlu:
     - travel to [Sydney](to_location)
 - intent: tell_date
   examples: |
-    - [12/11/12](date)
+    - [2021-11-10](date)
     - on [12/11/12](date)
     - i want to go on [12/11/12](date)
     - date [12/11/12](date)
     - [12/23/21](date)
 - intent: tell_max_price
   examples: |
-    - Rs. [1000](maxPrice)
-    - my budget is [2000](maxPrice) rupees only
-    - not more than [10000](maxPrice) Rs.
+    - Rs. [1000](num)
+    - my budget is [2000](num) rupees only
+    - not more than [10000](num) Rs.
 - intent: stops_are_ok_too
   examples: |
     - stops are ok too

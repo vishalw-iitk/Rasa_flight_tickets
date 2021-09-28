@@ -4,8 +4,11 @@ from dotenv import load_dotenv
 import argparse
 import random
 import os
+import sys
 
 load_dotenv()
+
+sys.path.append('..')
 
 def get_oauth_headers():
     oauth_headers = {
@@ -123,15 +126,15 @@ def get_required_response(opt, dict_citycode, ticket_id, direction, response_dat
     # i = ticket_id; j = 0 if oneway, 1 if twoway; k = number of stops in a single way
     segment_resp = {"segment" : []}
     # required_response = 
-    num_of_stops = len(response_data[ticket_id]['itineraries'][direction]['segments'])
-    for segment in range(0, num_of_stops):
+    num_of_segments = len(response_data[ticket_id]['itineraries'][direction]['segments'])
+    for segment in range(0, num_of_segments):
         segment_response = {}
 
-        segment_response['origin'] = opt.originLocationName
-        segment_response['destination'] = opt.destinationLocationName
-
-        segment_response['origin_iata_code'] = opt.originLocationCode
-        segment_response['destination_iata_code'] = opt.destinationLocationCode
+        segment_response['origin_iata_code'] = response_data[ticket_id]['itineraries'][direction]['segments'][segment]['departure']['iataCode']
+        segment_response['destination_iata_code'] = response_data[ticket_id]['itineraries'][direction]['segments'][segment]['arrival']['iataCode']
+    
+        segment_response['origin'] = dict_citycode["data"][segment_response['origin_iata_code']]['city']
+        segment_response['destination'] = dict_citycode["data"][segment_response['destination_iata_code']]['city']
 
         segment_response['departure_at'] = response_data[ticket_id]['itineraries'][direction]['segments'][segment]['departure']['at']
         segment_response['departure_date'] = segment_response['departure_at'][:10]
@@ -147,13 +150,14 @@ def get_required_response(opt, dict_citycode, ticket_id, direction, response_dat
                                             response_data[ticket_id]['itineraries'][direction]['segments'][segment]['number'])
         segment_response['aircraft_code'] = response_data[ticket_id]['itineraries'][direction]['segments'][segment]['aircraft']['code']
         segment_response['duration'] = response_data[ticket_id]['itineraries'][direction]['segments'][segment]['duration'][2:]
-        segment_response['num_of_stops'] = num_of_stops
+        segment_response['num_of_stops'] = num_of_segments - 1
         segment_response['cabin'] = response_data[ticket_id]['travelerPricings'][0]['fareDetailsBySegment'][segment]['cabin']
         
-        segment_response['origin_airportname'] = dict_citycode["data"][opt.originLocationCode]['airportname']
-        segment_response['destination_airportname'] = dict_citycode["data"][opt.destinationLocationCode]['airportname']
-        segment_response['origin_GMT'] = dict_citycode["data"][opt.originLocationCode]['gmt']
-        segment_response['destination_GMT'] = dict_citycode["data"][opt.destinationLocationCode]['gmt']
+
+        segment_response['origin_airportname'] = dict_citycode["data"][segment_response['origin_iata_code']]['airportname']
+        segment_response['destination_airportname'] = dict_citycode["data"][segment_response['destination_iata_code']]['airportname']
+        segment_response['origin_GMT'] = dict_citycode["data"][segment_response['origin_iata_code']]['gmt']
+        segment_response['destination_GMT'] = dict_citycode["data"][segment_response['destination_iata_code']]['gmt']
 
         segment_response['numberOfBookableSeats'] = response_data[ticket_id]['numberOfBookableSeats']
 
@@ -183,7 +187,7 @@ def run(**kwargs):
     opt = parse_opt(True)
     for k, v in kwargs.items():
         setattr(opt, k, v)
-    main(opt)
+    return main(opt)
 
 def main(opt):
     oauth_url = 'https://test.api.amadeus.com/v1/security/oauth2/token'
@@ -199,7 +203,8 @@ def main(opt):
     print("token", token)
     headers = get_headers(token)
 
-    with open('dict_cityname.json') as json_file:
+    # with open('dict_cityname.json') as json_file:
+    with open('../Flights_API/dict_cityname.json') as json_file:
         dict_cityname = json.load(json_file)
     opt.originLocationCode = get_iata_code(dict_cityname, opt.originLocationName)
     opt.destinationLocationCode = get_iata_code(dict_cityname, opt.destinationLocationName)
@@ -210,13 +215,14 @@ def main(opt):
     data_key = 'data'
     response_data = get_response_data(response, data_key)
 
-    with open('dict_citycode.json') as json_file:
+    # with open('dict_citycode.json') as json_file:
+    with open('../Flights_API/dict_citycode.json') as json_file:
         dict_citycode = json.load(json_file)
 
     opt.originLocationName = get_city_name(dict_citycode, opt.originLocationCode)
     opt.destinationLocationName = get_city_name(dict_citycode, opt.destinationLocationCode)
 
-    opt.maxPrice = to_euro(opt.conv_rate, opt.maxPrice)
+    opt.maxPrice = to_euro(opt.conv_rate, float(opt.maxPrice))
 
     final_response = {"data" : []}
     num_of_directions = 2 # 1 or 2
@@ -226,7 +232,7 @@ def main(opt):
             segment_response = get_required_response(opt, dict_citycode, ticket_id, direction, response_data)
             direction_response["direction"].append(segment_response)
         final_response["data"].append(direction_response)
-    print(final_response)
+    # print("in amadeus", final_response)
     # provide_output_to_slots(final_response)
     # print(100*"*")
     # print_length_of_response_firstdataponits(response_data)
