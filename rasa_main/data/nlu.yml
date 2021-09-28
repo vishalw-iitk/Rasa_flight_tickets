@@ -69,6 +69,25 @@ nlu:
     - book it
     - tickets booking
     - book the tickets
+- intent: numerical
+  examples: |
+    - [1](num)
+    - [2](num)
+    - [3](num)
+    - [4](num)
+    - [5](num)
+    - [6](num)
+    - [7](num)
+    - [8](num)
+    - [9](num)
+    - [10](num)
+- intent: number_of_tickets
+  examples: |
+    - I want to book [1](num) ticket
+    - [2](num) tickets please
+    - only [1](num) ticket
+    - just [1](num) ticket
+    - [2](num) tickets 
 - intent: confirm_tickets_booking
   examples: |
     - confirm it
@@ -110,12 +129,37 @@ nlu:
     - i want to go on [12/11/12](date)
     - date [12/11/12](date)
     - [12/23/21](date)
-- intent: tell_time
+- intent: tell_max_price
   examples: |
-    - [12:23 am](time)
-    - time [12:23](time)
-    - time should be [12:23 pm](time)
-    - [12:67](time)
+    - Rs. [1000](maxPrice)
+    - my budget is [2000](maxPrice) rupees only
+    - not more than [10000](maxPrice) Rs.
+- intent: stops_are_ok_too
+  examples: |
+    - stops are ok too
+    - include the flights with stops also
+    - I may prefer nonstop flight though
+    - yes include them
+    - yes include
+    - yes include stops
+    - stops are ok
+    - stops are fine
+- intent: non_stop_only
+  examples: |
+    - stops are not ok
+    - nonstop only
+    - do not include stops
+    - no breaks
+    - no stops please
+    - flight in continuation only
+- intent: tell_max_price
+  examples: |
+    - max [1000](maxPrice) INR
+    - [1000](maxPrice) INR
+    - my budget is under [1000](maxPrice) rupees
+    - my budget is under [1000](maxPrice) INR
+    - not more than [2000] rupees
+    - not more than [2000] INR
 - intent: new_ticket
   examples: |
     - new ticket

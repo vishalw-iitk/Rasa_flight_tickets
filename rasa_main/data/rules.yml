@@ -13,8 +13,11 @@ rules:
     - from_location: null
     - to_location: null
     - date: null
-    - time: null
+    - adults : null
+    - nonStop : null
+    - maxPrice : null
     - begin_status: null
+    - confirm_message: null
     - confirm_status: null
   - active_loop: begin_form
 
@@ -33,11 +36,14 @@ rules:
       - from_location: null
       - to_location: null
       - date: null
-      - time: null
+      - adults : null
+      - nonStop : null
+      - maxPrice : null
       - begin_status: True
+      - confirm_message: null
       - confirm_status: null
-    - action: flights_form
-    - active_loop: flights_form
+    - action : num_tickets_form
+    - active_loop: num_tickets_form
 
 - rule: another ticket 2
   condition:
@@ -53,12 +59,15 @@ rules:
       - contact_number: null
       - from_location: null
       - to_location: null
-      - date: null
-      - time: null
+      - date: null    
+      - adults : null
+      - nonStop : null
+      - maxPrice : null
       - begin_status: True
+      - confirm_message: null
       - confirm_status: null
-    - action: flights_form
-    - active_loop: flights_form
+    - action : num_tickets_form
+    - active_loop: num_tickets_form
 
 - rule: another ticket 3
   condition:
@@ -74,31 +83,15 @@ rules:
       - contact_number: null
       - from_location: null
       - to_location: null
-      - date: null
-      - time: null
+      - date: null      
+      - adults : null
+      - nonStop : null
+      - maxPrice : null
       - begin_status: True
+      - confirm_message: null
       - confirm_status: null
-    - action: flights_form
-    - active_loop: flights_form
-
-- rule: begin to flights form
-  condition:
-  - active_loop: begin_form
-  steps:
-  - action: begin_form
-  - active_loop: null
-  - slot_was_set:
-    - full_name: null
-    - contact_number: null
-    - from_location: null
-    - to_location: null
-    - date: null
-    - time: null
-    - begin_status: True
-    - confirm_status: null
-    - requested_slot: null
-  - action: flights_form
-  - active_loop: flights_form
+    - action : num_tickets_form
+    - active_loop: num_tickets_form
 
 - rule: not to begin
   condition:
@@ -107,16 +100,91 @@ rules:
   - action: begin_form
   - active_loop: null
   - slot_was_set:
+    - begin_status: False
     - full_name: null
     - contact_number: null
     - from_location: null
     - to_location: null
     - date: null
-    - time: null
-    - begin_status: False
+    - adults : null
+    - nonStop : null
+    - maxPrice : null
     - confirm_status: null
+    - confirm_message: null
     - requested_slot: null
   - action: utter_visit_again
+
+
+- rule: begin to num_tickets form
+  condition:
+  - active_loop: begin_form
+  steps:
+  - action: begin_form
+  - active_loop: null
+  - slot_was_set:
+    - full_name: null
+    - contact_number: null
+    - from_location: null
+    - to_location: null
+    - date: null
+    - adults : null
+    - nonStop : null
+    - maxPrice : null
+    - begin_status: True
+    - confirm_status: null
+    - confirm_message: null
+    - requested_slot: null
+  - action: num_tickets_form
+  - active_loop: num_tickets_form
+
+- rule: number of tickets to flights form
+  condition:
+  - active_loop: num_tickets_form
+  steps:
+  - action: num_tickets_form
+  - active_loop: null
+  - slot_was_set:
+    - begin_status: True
+    - full_name: null
+    - contact_number: null
+    - from_location: null
+    - to_location: null
+    - date: null
+    - adults : null
+    - nonStop : null
+    - maxPrice : null
+    - confirm_status: null
+    - confirm_message: null
+    - requested_slot: null
+  - action: names_form
+  - active_loop: names_form
+
+- rule: till all the names are received
+  condition:
+  - active_loop: names_form
+  # - slot_was_set:
+    # - begin_status: True
+    # - full_name: null
+  steps:
+    - action : names_form
+    - active_loop: null
+    - action : action_get_names
+    - slot_was_set:
+      - begin_status: True
+      - full_name: "vishal"
+      - contact_number: "9898989898"
+      - from_location: "mumbai"
+      - to_location: "new york"
+      - date: "12/12/13"
+      - adults : '1'
+      - nonStop : 'false'
+      - maxPrice : '300'
+      - confirm_message: null
+      - confirm_status: null
+      - requested_slot: null
+    - action : flights_form
+    - active_loop : flights_form
+    
 
 - rule: flights form to confirm form
   condition:
@@ -125,17 +193,20 @@ rules:
   - action: flights_form
   - active_loop: null
   - slot_was_set:
+    - begin_status: True
     - full_name: "vishal waghmare"
     - contact_number: "9898989898"
     - from_location: "mumbai"
     - to_location: "new york"
     - date: "12/12/13"
-    - time: "12:32"
-    - begin_status: True
+    - adults : '1'
+    - nonStop : 'false'
+    - maxPrice : '300'
+    - confirm_message: null
     - confirm_status: null
     - requested_slot: null
   - action: utter_submit
-  - action: utter_showpreview
+  - action: action_show_preview
   - action: confirm_form
   - active_loop: confirm_form
 
@@ -146,14 +217,17 @@ rules:
   - action: confirm_form
   - active_loop: null
   - slot_was_set:
+    - begin_status: True
     - full_name: "vishal waghmare"
     - contact_number: "9898989898"
     - from_location: "mumbai"
     - to_location: "new york"
     - date: "12/12/13"
-    - time: "12:32"
-    - begin_status: True
+    - adults : '1'
+    - nonStop : 'false'
+    - maxPrice : '300'
     - confirm_status: True
+    - confirm_message: null
     - requested_slot: null
   - action: utter_confirmation
   - action: utter_show_booked_ticket
@@ -165,13 +239,16 @@ rules:
   - action: confirm_form
   - active_loop: null
   - slot_was_set:
+    - begin_status: True
     - full_name: "vishal waghmare"
     - contact_number: "9898989898"
     - from_location: "mumbai"
     - to_location: "new york"
     - date: "12/12/13"
-    - time: "12:32"
-    - begin_status: True
+    - adults : '1'
+    - nonStop : 'false'
+    - maxPrice : '300'
+    - confirm_message: null
     - confirm_status: False
     - requested_slot: null
   - action: utter_visit_again

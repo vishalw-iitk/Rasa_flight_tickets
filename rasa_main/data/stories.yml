@@ -76,13 +76,6 @@ stories:
     - action: begin_form
     - active_loop: begin_form
 
-- story: story tell_time
-  steps:
-    - intent: tell_time
-    - action: utter_appears_time
-    - action: action_query_fresh
-    - action: begin_form
-    - active_loop: begin_form
 
 
 ##### experiment : working form based story
