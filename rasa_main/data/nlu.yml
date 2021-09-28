@@ -131,9 +131,7 @@ nlu:
     - [12/23/21](date)
 - intent: tell_max_price
   examples: |
-    - Rs. [1000](num)
-    - my budget is [2000](num) rupees only
-    - not more than [10000](num) Rs.
+
 - intent: stops_are_ok_too
   examples: |
     - stops are ok too
@@ -154,12 +152,15 @@ nlu:
     - flight in continuation only
 - intent: tell_max_price
   examples: |
-    - max [1000](maxPrice) INR
-    - [1000](maxPrice) INR
-    - my budget is under [1000](maxPrice) rupees
-    - my budget is under [1000](maxPrice) INR
+    - max [1000](num) INR
+    - [1000](num) INR
+    - my budget is under [1000](num) rupees
+    - my budget is under [1000](num) INR
     - not more than [2000] rupees
     - not more than [2000] INR
+    - Rs. [1000](num)
+    - my budget is [2000](num) rupees only
+    - not more than [10000](num) Rs.
 - intent: new_ticket
   examples: |
     - new ticket

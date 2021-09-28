@@ -88,6 +88,10 @@ responses:
   - text: From where do you want take the flight ?
   utter_ask_to_location:
   - text: Where do you want to land at ?
+  utter_ask_departureDate:
+  - text: On which date will you onboard ?
+  utter_ask_returnDate:
+  - text: When will you fly back from your destination ?
   utter_ask_date:
   - text: When do you want to travel ?
   utter_ask_nonStop:

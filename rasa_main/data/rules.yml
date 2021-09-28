@@ -98,9 +98,6 @@ rules:
     - confirm_message: null
     - requested_slot: null
   - action: utter_ask_full_name
-  
-  # - action: names_form
-  # - active_loop: names_form
 
 - rule: till all the names are received 1
   steps:
@@ -128,6 +125,32 @@ rules:
     - requested_slot: null
   - action: flights_form
   - active_loop: flights_form
+
+- rule: till all the names are received 1
+  steps:
+  - intent: tell_name
+  - slot_was_set:
+    - requested_slot: full_name
+  - slot_was_set:
+    - full_name: "Vishal"
+  - action: action_get_names
+  - slot_was_set:
+    - begin_status: True
+    - full_name: null
+    - stored_all_names: false
+    - adults : '1'
+    - all_names: ''
+    - contact_number: null
+    - from_location: null
+    - to_location: null
+    - departureDate: null
+    - returnDate: null
+    - nonStop : null
+    - maxPrice : null
+    - confirm_status: null
+    - confirm_message: null
+    - requested_slot: null
+  - action: utter_ask_full_name
 
 # - rule: till all the names are received 1
 #   condition:

@@ -119,8 +119,8 @@ class Actionshowpreview(Action):
         all_names_list.pop()
         for name in all_names:
             preview_message += f'{name}\n'
-        preview_message += f'contact number : {contact_number}\n'
-        preview_message += 'Here is the preview for the complete journey of any one of you\n'
+        preview_message += f'\ncontact number : {contact_number}\n'
+        preview_message += '\nHere is the preview for the complete journey of any one of you\n'
         # #for loop
         # for ticket_id in range(0, num_of_tickets):
         for ticket_id in range(0,1):
