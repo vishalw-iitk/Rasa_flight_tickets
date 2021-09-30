@@ -6,15 +6,17 @@ RUN apt update
 
 RUN python -m pip install --upgrade pip
 
-COPY requirements.txt .
+# COPY requirements.txt .
 
-RUN pip3 install --no-cache -qr requirements.txt
+RUN pip3 install rasa[spacy]==2.8.6
 
-RUN mkdir -p /usr/src/app/chatbot
+RUN pip3 install python-dotenv==0.19.0
 
-WORKDIR /usr/src/app/chatbot
+RUN mkdir -p /usr/src/app/chatbot/Rasa
 
-COPY . /usr/src/app/chatbot
+COPY . /usr/src/app/chatbot/Rasa
+
+WORKDIR /usr/src/app/chatbot/Rasa/rasa_main
 
 USER 1001
 

@@ -6,9 +6,8 @@ import random
 import os
 import sys
 
-load_dotenv()
-
 sys.path.append('..')
+load_dotenv('../../.env')
 
 def get_oauth_headers():
     oauth_headers = {
@@ -167,10 +166,10 @@ def main(opt):
     client_secret = os.getenv('API_SECRET', 'api secret from amadeus')
     oauth_keys = get_oauth_keys(grant_type, client_id, client_secret)
     oauth_response = get_oauth_response(oauth_url, oauth_headers, oauth_keys)
-    print("oauth_response", oauth_response)
+    # print("oauth_response", oauth_response)
     access_token_key = 'access_token'
     token = get_oauth_token(oauth_response, access_token_key)
-    print("token", token)
+    # print("token", token)
 
     # should start from here
     # load the stored token
@@ -217,192 +216,3 @@ if "__main__" == __name__:
     opt = parse_opt(True)
     main(opt)
 
-# 1 ticket
-{
-    'data': [
-            {
-                'direction': [
-                    {
-                        'segment': [
-                            {
-                                'numberOfBookableSeats': 9,
-                                'departure_at': '2021-11-10T06:10:00',
-                                'arrival_at': '2021-11-10T08:50:00',
-                                'price': 6903.0787,
-                                'flight_code': 'AI675',
-                                'aircraft_code': '32A',
-                                'duration': '2H40M',
-                                'num_of_stops': 1,
-                                'cabin': 'ECONOMY',
-                                'gate_number': 17,
-                                'seat_number': '59D'
-                            }
-                        ]
-                    },
-                    {
-                        'segment': [
-                                {
-                                    'numberOfBookableSeats': 9,
-                                    'departure_at': '2021-11-11T09:25:00',
-                                    'arrival_at': '2021-11-11T12:25:00',
-                                    'price': 6903.0787,
-                                    'flight_code': 'AI676',
-                                    'aircraft_code': '32A',
-                                    'duration': '3H',
-                                    'num_of_stops': 1,
-                                    'cabin': 'ECONOMY',
-                                    'gate_number': 17,
-                                    'seat_number': '96A'
-                                }
-                        ]
-                    }
-                ]
-            }
-    ]
-}
-####################################
-# 2 tickets
-{
-    'data': [
-        {
-            'direction': [
-                {
-                    'segment': [
-                        {
-                            'numberOfBookableSeats': 9,
-                            'departure_at': '2021-11-10T06:10:00',
-                            'arrival_at': '2021-11-10T08:50:00',
-                            'price': 13806.1574,
-                            'flight_code': 'AI675',
-                            'aircraft_code': '32A',
-                            'duration': '2H40M',
-                            'num_of_stops': 1,
-                            'cabin': 'ECONOMY',
-                            'gate_number': 9,
-                            'seat_number': '7D'
-                        }
-                    ]
-                },
-                {
-                    'segment': [
-                        {
-                            'numberOfBookableSeats': 9,
-                            'departure_at': '2021-11-11T09:25:00',
-                            'arrival_at': '2021-11-11T12:25:00',
-                            'price': 13806.1574,
-                            'flight_code': 'AI676',
-                            'aircraft_code': '32A',
-                            'duration': '3H',
-                            'num_of_stops': 1,
-                            'cabin': 'ECONOMY',
-                            'gate_number': 18,
-                            'seat_number': '3C'
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            'direction': [
-                {
-                    'segment': [
-                        {
-                            'numberOfBookableSeats': 9,
-                            'departure_at': '2021-11-10T06:10:00',
-                            'arrival_at': '2021-11-10T08:50:00',
-                            'price': 13806.1574,
-                            'flight_code': 'AI675',
-                            'aircraft_code': '32A',
-                            'duration': '2H40M',
-                            'num_of_stops': 1,
-                            'cabin': 'ECONOMY',
-                            'gate_number': 38,
-                            'seat_number': '24A'
-                        }
-                    ]
-                },
-                {
-                    'segment': [
-                        {
-                            'numberOfBookableSeats': 9,
-                            'departure_at': '2021-11-11T19:40:00',
-                            'arrival_at': '2021-11-11T23:25:00',
-                            'price': 13806.1574,
-                            'flight_code': 'AI732',
-                            'aircraft_code': '32B',
-                            'duration': '3H45M',
-                            'num_of_stops': 1, 
-                            'cabin': 'ECONOMY',
-                            'gate_number': 18, 
-                            'seat_number': '0D'
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-}
-
-# ############
-{
-    'data': [
-        {
-            'direction': [
-                {
-                    'segment': [
-                        {
-                            'origin': 'Mumbai',
-                            'destination': 'Nagpur',
-                            'origin_iata_code': 'BOM',
-                            'destination_iata_code': 'NAG',
-                            'departure_date': '2021-11-10',
-                            'departure_time': 'T19:00:00',
-                            'arrival_date': 'T20:35:00',
-                            'arrival_time': 'T20:35:00',
-                            'price': 4760.8925,
-                            'flight_code': 'AI629',
-                            'aircraft_code': '321',
-                            'duration': '1H35M',
-                            'num_of_stops': 1,
-                            'cabin': 'ECONOMY',
-                            'origin_airportname': 'Chhatrapati Shivaji International',
-                            'destination_airportname': 'Dr. Babasaheb Ambedkar International Airport',
-                            'origin_GMT': '+5.5',
-                            'destination_GMT': '+5.5',
-                            'numberOfBookableSeats': 9,
-                            'gate_number': 2,
-                            'seat_number': '39C'
-                        }
-                    ]
-                },
-                {
-                    'segment': [
-                        {
-                            'origin': 'Mumbai',
-                            'destination': 'Nagpur',
-                            'origin_iata_code': 'BOM',
-                            'destination_iata_code': 'NAG',
-                            'departure_date': '2021-11-11',
-                            'departure_time': 'T07:55:00',
-                            'arrival_date': 'T09:20:00',
-                            'arrival_time': 'T09:20:00',
-                            'price': 4760.8925,
-                            'flight_code': 'AI628',
-                            'aircraft_code': '32B',
-                            'duration': '1H25M',
-                            'num_of_stops': 1,
-                            'cabin': 'ECONOMY',
-                            'origin_airportname': 'Chhatrapati Shivaji International',
-                            'destination_airportname': 'Dr. Babasaheb Ambedkar International Airport',
-                            'origin_GMT': '+5.5',
-                            'destination_GMT': '+5.5',
-                            'numberOfBookableSeats': 9,
-                            'gate_number': 22,
-                            'seat_number': '45C'
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-}

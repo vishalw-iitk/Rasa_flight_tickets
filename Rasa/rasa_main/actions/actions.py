@@ -46,16 +46,16 @@ class Actionsayname(Action):
         # text = tracker.latest_message['text']
 
         current_name = next(tracker.get_latest_entity_values("name"), None)
-        print(current_name)
+        # print(current_name)
 
         if not current_name:
             msg = f"Name not recognized. Please enter properly"
-            print(msg)
+            # print(msg)
             dispatcher.utter_message(text = msg)
             return []
         
         msg = f"Hey {current_name}. Nice to see you!"
-        print(msg)
+        # print(msg)
         dispatcher.utter_message(text = msg)
 
         return [SlotSet("name", current_name)]
@@ -74,12 +74,12 @@ class Actiondisplay(Action):
 
         if not name:
             msg = f"oops. Please enter properly"
-            print(msg)
+            # print(msg)
             dispatcher.utter_message(text = msg)
             return []
         
         msg = f"Repeated: Your name is {name}. Nice to see you!"
-        print(msg)
+        # print(msg)
         dispatcher.utter_message(text = msg)
 
         return []

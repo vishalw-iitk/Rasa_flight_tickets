@@ -3,7 +3,9 @@ services:
   actions:
     container_name: rasa_action_server
     image: flight_chatbot_rasa
-    build: rasa_main/
+    build: Rasa/
+    env_file:
+      - ./.env
     ports:
       - "5055:5055"
     expose:
@@ -11,7 +13,10 @@ services:
     command: 'run actions'
 
   rasa:
+    container_name: rasa_run_server
     image: flight_chatbot_rasa
+    volumes:
+      - ./RASA/rasa_main/models:/usr/src/app/chatbot/Rasa/rasa_main/models
     ports:
       - "5005:5005"
     command: 'run --cors "*" --enable-api'
@@ -19,6 +24,7 @@ services:
       - "5005"
 
   app:
+    container_name: rasa_UI_server
     image: flight_flask
     build: Flask/
     ports:

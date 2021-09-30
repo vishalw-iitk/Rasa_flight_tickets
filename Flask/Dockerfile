@@ -2,15 +2,17 @@ FROM python:alpine3.7
 
 RUN python -m pip install --upgrade pip
 
-COPY requirements.txt .
+RUN pip3 install flask==2.0.1
 
-RUN pip3 install --no-cache -qr requirements.txt
+RUN pip3 install Flask-Cors==3.0.10
 
-RUN mkdir -p /usr/src/app/chatbot
+# RUN pip3 install --no-cache -qr requirements.txt
 
-WORKDIR /usr/src/app/chatbot
+RUN mkdir -p /usr/src/app/chatbot/Flask
 
-COPY . /usr/src/app/chatbot
+WORKDIR /usr/src/app/chatbot/Flask
+
+COPY . /usr/src/app/chatbot/Flask
 
 EXPOSE 5000
 

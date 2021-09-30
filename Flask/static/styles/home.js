@@ -105,7 +105,7 @@ function insert_into_web(msg_classname, img_src, msg_text){
 
     // add_break_line(chatb)
 
-    console.log(actual_user_msg)
+    // console.log(actual_user_msg)
     return actual_user_msg
 }
 
@@ -134,7 +134,7 @@ document.querySelector('.msg_button').addEventListener('click', ()=>{
     .then(response => response.json())
     .then(data => {
         for (var i = 0; i < data.length; i++) {
-            console.log(data[i]['text'])
+            // console.log(data[i]['text'])
             insert_into_web("bot_msg_in_body", "https://support.upwork.com/hc/article_attachments/360040474034/chatbot-data.png", data[i]['text'])
         }
     })
