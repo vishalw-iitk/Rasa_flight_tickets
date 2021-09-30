@@ -66,3 +66,11 @@ action_endpoint:
 
 docker-compose build
 docker-compose --env-file .env up
+
+To generate Authentication key:
+1. Register/Sign-in for self-service API on amadeus : https://developers.amadeus.com/get-started/get-started-with-self-service-apis-335
+2. Go in Self-Service MyWorkSpace option
+3. Create new app
+4. Go inside your app or icon and get the API KEY and API SECRET
+This is the Authentication guide : https://developers.amadeus.com/self-service/apis-docs/guides/authorization-262
+
