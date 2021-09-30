@@ -171,6 +171,13 @@ def main(opt):
     access_token_key = 'access_token'
     token = get_oauth_token(oauth_response, access_token_key)
     print("token", token)
+
+    # should start from here
+    # load the stored token
+    # try to get the response data
+    # if success, then continue below onwards
+    # if catch block then generate the token from above
+    # TWO stuffs : LOAD THE TOKEN | GENERATE THE TOKEN AND STORE IT(encoded; JWT??)
     headers = get_headers(token)
 
     # with open('dict_cityname.json') as json_file:

@@ -90,16 +90,18 @@ class Actionshowpreview(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        all_names = tracker.get_slot("all_names")
-        contact_number = tracker.get_slot("contact_number")
+        all_names_list = tracker.get_slot("all_names")
+        contact_number = int(tracker.get_slot("contact_number"))
         originLocationName = tracker.get_slot("from_location")
         destinationLocationName = tracker.get_slot("to_location")
         departureDate = tracker.get_slot("departureDate")
         returnDate = tracker.get_slot("returnDate")
-        adults = num_tickets = tracker.get_slot("adults")
+        adults = int(tracker.get_slot("adults"))
         nonStop = tracker.get_slot("nonStop")
-        budget = tracker.get_slot("maxPrice")
-        num_of_tickets = adults
+        budget = int(tracker.get_slot("maxPrice"))
+
+        budget = str(budget)
+        num_of_tickets = str(adults)
         nonStop = str(nonStop).lower()
         
 
@@ -115,10 +117,10 @@ class Actionshowpreview(Action):
         preview_message = f'We have received the info for {num_of_tickets} tickets as requested by you\n'
         preview_message += 'These are names of ticket holders\n'
         # all_names = all_names.split(';')
-        all_names_list = all_names.split(';')
-        all_names_list.pop()
-        for name in all_names:
-            preview_message += f'{name}\n'
+        # all_names_list = all_names.split(';')
+        # all_names_list.pop()
+        for i, name in enumerate(all_names_list):
+            preview_message += f'{i+1}. {name}\n'
         preview_message += f'\ncontact number : {contact_number}\n'
         preview_message += '\nHere is the preview for the complete journey of any one of you\n'
         # #for loop
@@ -138,18 +140,18 @@ class Actionshowpreview(Action):
                         sr['arrival_date'], sr['arrival_time'], np.round(sr['price'], 1), sr['flight_code'], sr['aircraft_code'], sr['duration'], \
                             sr['num_of_stops'], sr['cabin'],sr['origin_airportname'], sr['destination_airportname'], sr['origin_GMT'], sr['destination_GMT'], \
                                 sr['numberOfBookableSeats'], sr['gate_number'], sr['seat_number']
-                    preview_message += f'Segment {segment}\n'
+                    preview_message += f'Segment {segment + 1}\n'
                     preview_message += f'origin            : {origin}\n'
                     preview_message += f'destination       : {destination}\n'
                     preview_message += f'departure_date    : {departure_date}\n'
                     preview_message += f'departure_time    : {departure_time}\n'
                     preview_message += f'arrival_date      : {arrival_date}\n'
                     preview_message += f'arrival_time      : {arrival_time}\n'
-                    preview_message += f'price             : {price}\n'
+                    # preview_message += f'price             : {price}\n'
                     preview_message += f'flight_code       : {flight_code}\n'
                     preview_message += f'aircraft_code     : {aircraft_code}\n'
                     preview_message += f'duration          : {duration}\n'
-                    preview_message += f'num_of_stops      : {num_of_stops}\n'
+                    # preview_message += f'num_of_stops      : {num_of_stops}\n'
                     preview_message += f'cabin             : {cabin}\n'
                     preview_message += f'origin_GMT        : {origin_GMT}\n'
                     preview_message += f'destination_GMT   : {destination_GMT}\n'
@@ -160,22 +162,37 @@ class Actionshowpreview(Action):
                     preview_message += f'destination_airportname: {destination_airportname}\n'
                     preview_message += f'destination_iata_code  : {destination_iata_code}\n'
                     preview_message += f'numberOfBookableSeats  : {numberOfBookableSeats}\n\n'
-        #             # ---------
-        # preview_message += 'Let me know if should confirm this\n'
-        # preview_message += 'Tickets for all of you will be booked\n'
-
-        # preview_message += 'Total number of stops in direction {} : {}\n' #for loop
-        # preview_message += 'Total duration for direction {} : {}\n' #for loop
-        # preview_message += 'Your grand total is {}\n'
+        
+        preview_message += f'Total number of stops in your journey : {num_of_stops}\n'
+        preview_message += f'Your grand total is Rs. {price}'
         
         dispatcher.utter_message(text=preview_message)
         
-        confirm_message = "Congrats.!!! Your ticket is booked successfully"
+        confirm_message = "Congrats.!!! Payment successfull"
 
         return[SlotSet('confirm_message', confirm_message)]
 
+class ActionAskFullName(Action):
+    def name(self) -> Text:
+        return "action_ask_full_name"
 
-class Actionsetbeginstatustrue(Action):
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        all_names_list = tracker.get_slot("all_names")
+        adults = int(tracker.get_slot("adults"))
+        
+        if adults == 1:
+            dispatcher.utter_message(text="Please provide your full name")
+        elif all_names_list == None:
+            dispatcher.utter_message(text=f"Please provide full name of Passenger 1")
+        else:
+            dispatcher.utter_message(text=f"Please provide full name of Passenger {len(all_names_list) + 1}")
+            
+        return[]
+
+class ActionSetBeginStatusTrue(Action):
     def name(self) -> Text:
         return "action_set_begin_status_true"
 
@@ -204,17 +221,18 @@ class Actiongetnames(Action):
         num_of_tickets = tracker.get_slot("adults")
         num_of_tickets = int(num_of_tickets)
         full_name = tracker.get_slot("full_name")
-        all_names = tracker.get_slot("all_names")
-        # stored_all_names = tracker.get_slot("stored_all_names")
-        
-        # all_names = ''
-        full_name += ';'
-        all_names += full_name
 
-        all_names_list = all_names.split(';')
-        all_names_list.pop()
-        print("all names", all_names, "\nnum tickets", num_of_tickets)
-        if len(all_names_list) == num_of_tickets:
-            return[SlotSet("full_name", None), SlotSet("all_names", all_names), SlotSet("stored_all_names", True)]
+        all_names_list = tracker.get_slot("all_names")
+        if all_names_list == None:
+            all_names_list = []
+
+        all_names_list.append(full_name)        
+
+        # all_names_list = all_names.split(';')
+        # all_names_list.pop()
+        print("all names", all_names_list, "\nnum tickets", num_of_tickets)
+        traveller_no = len(all_names_list)
+        if traveller_no == num_of_tickets:
+            return[SlotSet("full_name", None), SlotSet("all_names", all_names_list), SlotSet("stored_all_names", True)]
         else:
-            return[SlotSet("full_name", None), SlotSet("all_names", all_names), SlotSet("stored_all_names", False)]
+            return[SlotSet("full_name", None), SlotSet("all_names", all_names_list), SlotSet("stored_all_names", False)]

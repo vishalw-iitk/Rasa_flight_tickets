@@ -36,11 +36,9 @@ slots:
     influence_conversation: true
   full_name:
     type: text
-    # auto_fill: false
     influence_conversation: true
   all_names:
-    type: text
-    initial_value: ''
+    type: list
     influence_conversation: true
   stored_all_names:
     type: bool
@@ -48,6 +46,7 @@ slots:
     influence_conversation: true  
   contact_number:
     type: text
+    auto_fill: false
     influence_conversation: true
   from_location:
     type: text
@@ -62,10 +61,11 @@ slots:
     type: text
     influence_conversation: true
   nonStop:
-    type: text
+    type: bool
     influence_conversation: true
   maxPrice:
     type: text
+    auto_fill: false
     influence_conversation: true
   confirm_status:
     type: bool
@@ -76,12 +76,17 @@ slots:
 responses:
   utter_ask_begin_status:
   - text: |
-      Glad to have you with us
-      Let me know if we can proceed to book the flight tickets
+      Glad to see you..!
+      Let's proceed to book flight tickets...
   utter_ask_adults:
   - text: How many tickets do you want to book ?
-  utter_ask_full_name:
-  - text: Please provide your full name
+  # utter_ask_full_name:
+  #   - condition:
+  #     - type: slot
+  #       name: adults
+  #       value: 1.0
+  #     text: Please provide your full name
+  #   - text: Please provide full name of Passenger {len(all_names)}
   utter_ask_contact_number:
   - text: Provide your contact number
   utter_ask_from_location:
@@ -100,37 +105,16 @@ responses:
   - text: What is the budget of your journey ?
   utter_submit:
   - text: Thanks for providing the required info
-  # utter_showpreview:
-  # - text: |
-  #     We have generated the ticket preview for you
-  #     Service provider: Indigo
-  #     Traveller name: {full_name}
-  #     Contact number: {contact_number}
-  #     From: {from_location}
-  #     To: {to_location}
-  #     Date of onboarding: {date}
-  #     Price: $ 100
-  #     Boarding time: {time}
-  #     Gate number: 12
-  #     Flight code: QA909
   utter_ask_confirm_status:
   - text: Do you want to confirm this booking ?
   utter_confirmation:
   - text: We have booked your tickets successfully
   utter_show_booked_ticket:
   - text: |
-      {confirm_message} : confirm message is displayed
-    # Your flight is booked as follows:
-    # Service provider: Indigo
-    # Traveller name: {full_name}
-    # Contact number: {contact_number}
-    # From: {from_location}
-    # To: {to_location}
-    # Date of onboarding: {date}
-    # Price: $ 100
-    # Boarding time: {time}
-    # Gate number: 12
-    # Flight code: QA909
+      {confirm_message} .
+      We have booked {adults} tickets for you.
+      Please check the ticket details sent on your mobile.
+      Happy journey!
   utter_visit_again:
   - text: |
       Thanks for your time
@@ -167,15 +151,25 @@ responses:
   utter_appears_date:
   - text: |
       This appears to be a date of your journey to me..
-  utter_appears_time:
+  utter_appears_budget:
   - text: |
-      This appears to be a your preferred on boarding time to me..
+      This appears to be your budget. May be....
+  utter_stops_ok:
+  - text: |
+      Long journey might have some stops. Stops are good to relax.
+  utter_non_stop_flights:
+  - text: |
+      Hurray!! Non stop flight....
+  utter_few_number_of_tickets:
+  - text: |
+      Seems like you are trying tell me to book some number of tickets
 actions:
 - action_display
 - action_get_names
 - action_query_fresh
 - action_sayname
 - action_set_begin_status_true
+- action_ask_full_name
 - utter_confirmation
 - utter_show_booked_ticket
 - action_show_preview
@@ -202,18 +196,8 @@ forms:
       - type: from_entity
         entity: num
         intent:
-        - numerical
         - number_of_tickets
-  # names_form:
-  #   required_slots:
-  #     full_name:
-  #     - type: from_entity
-  #       entity: full_name
-  #       intent:
-  #       - tell_name
-  #     - type: from_text
-  #       intent:
-  #       - tell_name
+        - numerical
   flights_form:
     required_slots:
       contact_number:
@@ -248,7 +232,7 @@ forms:
         entity: date
         intent:
         - tell_date
-      nonStop: #shall we also include the flights with intermediate stops. if yes then nonStop = false
+      nonStop:
       - type: from_intent
         value: false
         intent:
@@ -265,7 +249,6 @@ forms:
         intent:
         - tell_max_price
         - numerical
-
   confirm_form:
     required_slots:
       confirm_status:

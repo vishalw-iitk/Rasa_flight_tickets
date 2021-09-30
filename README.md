@@ -17,13 +17,23 @@ or
 3. rasa run actions
 
 Sample flight ticket requirements:
-- name: vishal
+- name: Vishal
 - contact number: 9898989898
 - From: mumbai
 - To: london
-- Date of onboarding: 12/32/32
-- Boarding time: 34:43
+- departueDate: 2021-11-10
+- returnDate: 2021-11-11 
+- nonstop: false
+- budget: 300000
 
-Configs:
-- Python version : 3.7
-- rasa : 2.8.6
+
+Virtual environemnt: Without docker
+Python : 3.7.0
+rasa: 2.8.6
+
+Docker:
+Docker should be installed.
+Requirements.txt must be proper
+docker-compose build
+docker-compose up -d
+docker-compose down
