@@ -8,23 +8,7 @@ stories:
   - intent: greet
   - action: action_query_fresh
   - action: begin_form
-  # - slot_was_set:
-  #   - full_name: null
-  #   - all_names: ''
-  #   - stored_all_names: false
-  #   - contact_number: null
-  #   - from_location: null
-  #   - to_location: null
-  #   - departureDate: null
-  #   - returnDate: null
-  #   - adults : null
-  #   - nonStop : null
-  #   - maxPrice : null
-  #   - begin_status: null
-  #   - confirm_message: null
-  #   - confirm_status: null
   - active_loop: begin_form
-  # wait_for_user_input: false
 
 - story: another ticket
   steps:

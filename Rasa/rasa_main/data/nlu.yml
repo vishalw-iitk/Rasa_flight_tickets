@@ -112,6 +112,7 @@ nlu:
     - My name is [Vishal](full_name)
     - My name is [robinhood](full_name)
     - Myself [praveen](full_name)
+    - [Praveen](full_name)
     - i am [rosy](full_name)
     - my name is vishal
     - i am [rosy](full_name)
@@ -125,8 +126,10 @@ nlu:
 - intent: tell_from_location
   examples: |
     - [mumbai](from_location)
+    - [chennai](from_location)
     - i am in [mumbai](from_location)
     - from [mumbai](from_location)
+    - from [Chennai](from_location)
     - boarding from [mumbai](from_location)
     - onboarding from [mumbai](from_location)
     - from [chandrapur](from_location)

@@ -2,9 +2,9 @@ FROM python:alpine3.7
 
 RUN python -m pip install --upgrade pip
 
-RUN pip3 install flask==2.0.1
+RUN pip3 install --no-cache flask==2.0.1
 
-RUN pip3 install Flask-Cors==3.0.10
+RUN pip3 install --no-cache Flask-Cors==3.0.10
 
 # RUN pip3 install --no-cache -qr requirements.txt
 

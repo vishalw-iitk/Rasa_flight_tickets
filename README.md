@@ -65,7 +65,12 @@ action_endpoint:
  url: "http://rasa_action_server:5055/webhook"
 
 docker-compose build
+docker-compose up --no-deps rasa_train
 docker-compose --env-file .env up
+
+I am storing the trained model with the name model_in_use
+anyhow, the model recently trained in the list from models folder will be loaded for rasa run command, not necessariliy model_in_use model if u put the name of the old model as model_in_use. for rasa run only recently trained will be loaded irrespective of any name
+
 
 To generate Authentication key:
 1. Register/Sign-in for self-service API on amadeus : https://developers.amadeus.com/get-started/get-started-with-self-service-apis-335
