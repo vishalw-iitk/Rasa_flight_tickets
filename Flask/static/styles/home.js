@@ -29,7 +29,7 @@ document.querySelector('.chathead').addEventListener('click', ()=>{
         
         setTimeout(
             function(){
-                welocme_msg("bot_msg_in_body", "https://support.upwork.com/hc/article_attachments/360040474034/chatbot-data.png", bot_initial_msg);
+                welocme_msg("bot_msg_in_body", "/static/images/bot_icon.png", bot_initial_msg);
             }, 1000);
 
 })
@@ -109,9 +109,17 @@ function insert_into_web(msg_classname, img_src, msg_text){
     return actual_user_msg
 }
 
+var input = document.querySelector('.msg_inp');
+input.addEventListener("keyup", function(event) {
+  if (event.key === 'Enter') {
+   event.preventDefault();
+   document.querySelector('.msg_button').click();
+  }
+});
+
 document.querySelector('.msg_button').addEventListener('click', ()=>{
     // user query
-    const actual_user_msg = insert_into_web("user_msg_in_body", "https://nulm.gov.in/images/user.png", ".msg_inp")
+    const actual_user_msg = insert_into_web("user_msg_in_body", "/static/images/user_icon.png", ".msg_inp")
     
     const user_query = {
         "sender": "user",
@@ -135,10 +143,8 @@ document.querySelector('.msg_button').addEventListener('click', ()=>{
     .then(data => {
         for (var i = 0; i < data.length; i++) {
             // console.log(data[i]['text'])
-            insert_into_web("bot_msg_in_body", "https://support.upwork.com/hc/article_attachments/360040474034/chatbot-data.png", data[i]['text'])
+            insert_into_web("bot_msg_in_body", "/static/images/bot_icon.png", data[i]['text'])
         }
     })
-
-
-    
+    input.select();
 })

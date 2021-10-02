@@ -80,13 +80,6 @@ responses:
       Let's proceed to book flight tickets...
   utter_ask_adults:
   - text: How many tickets do you want to book ?
-  # utter_ask_full_name:
-  #   - condition:
-  #     - type: slot
-  #       name: adults
-  #       value: 1.0
-  #     text: Please provide your full name
-  #   - text: Please provide full name of Passenger {len(all_names)}
   utter_ask_contact_number:
   - text: Provide your contact number
   utter_ask_from_location:

@@ -11,7 +11,7 @@ body{
     width: 98vw;
     height: 98vh;
     /* background-color: tomato; */
-    background-image: url("https://uploads-ssl.webflow.com/5b5544f1ef1d588fe94a813d/5b59858b5e43896f2df253ac_airplane-animation.gif");
+    background-image: url('/static/images/flights_background.gif');
     background-size: contain;
 }
 
