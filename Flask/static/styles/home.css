@@ -116,7 +116,7 @@ body{
     background-color: rgb(219, 218, 218);
     border-radius: 30px;
     width: 10%;
-    height: 65%;
+    height: 55%;
 }
 
 .msg_in_body > p{
@@ -125,6 +125,7 @@ body{
     max-width: 70%;
     padding: 5px;
     border-radius: 15px;
+    margin: 3px;
 }
 
 .user_msg_in_body{
