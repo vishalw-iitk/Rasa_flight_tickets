@@ -10,6 +10,14 @@ const welocme_msg = (function() {
     };
 })();
 
+var input = document.querySelector('.msg_inp');
+input.addEventListener("keyup", function(event) {
+  if (event.key === 'Enter') {
+   event.preventDefault();
+   document.querySelector('.msg_button').click();
+  }
+});
+
 document.querySelector('.chathead').addEventListener('click', ()=>{
     const chatcont = document.querySelectorAll('.chat_content')
     for (var i = 0; i < chatcont.length; i++) {
@@ -21,17 +29,18 @@ document.querySelector('.chathead').addEventListener('click', ()=>{
     document.querySelector('.chathead').classList.toggle('chathead_mob')
     document.querySelector('.chatter').classList.toggle('chatter_mob')
 
-        // bot initial msg
-        bot_initial_msg = "Hi! I am from Mirafra.\
-        \nI can help you in booking the flight tickets\
-        \nWelcome to our flight booking services."
-        
-        
-        setTimeout(
-            function(){
-                welocme_msg("bot_msg_in_body", "/static/images/bot_icon.png", bot_initial_msg);
-            }, 1000);
+    // bot initial msg
+    bot_initial_msg = "Hi! I am from Mirafra.\
+    \nI can help you in booking the flight tickets\
+    \nWelcome to our flight booking services."
+    
+    
+    setTimeout(
+        function(){
+            welocme_msg("bot_msg_in_body", "/static/images/bot_icon.png", bot_initial_msg);
+        }, 1000);
 
+    input.select();
 })
 
 
@@ -108,14 +117,6 @@ function insert_into_web(msg_classname, img_src, msg_text){
     // console.log(actual_user_msg)
     return actual_user_msg
 }
-
-var input = document.querySelector('.msg_inp');
-input.addEventListener("keyup", function(event) {
-  if (event.key === 'Enter') {
-   event.preventDefault();
-   document.querySelector('.msg_button').click();
-  }
-});
 
 document.querySelector('.msg_button').addEventListener('click', ()=>{
     // user query
