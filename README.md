@@ -37,7 +37,7 @@ Sample flight ticket requirements:
 - budget: 300000
 
 
-Virtual environemnt: Without docker
+Virtual environment: Without docker
 
 action_endpoint:
  url: "http://localhost:5055/webhook"
@@ -67,6 +67,10 @@ action_endpoint:
 docker-compose build
 docker-compose up --no-deps rasa_train
 docker-compose --env-file .env up
+
+open in browser : 
+http://127.0.0.1:5000/
+http://localhost:5000/
 
 I am storing the trained model with the name model_in_use
 anyhow, the model recently trained in the list from models folder will be loaded for rasa run command, not necessariliy model_in_use model if u put the name of the old model as model_in_use. for rasa run only recently trained will be loaded irrespective of any name
